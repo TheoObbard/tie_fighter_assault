@@ -1,5 +1,7 @@
 # Project proposal - Star Wars Game
 
+![Imgur](https://i.imgur.com/zJNUxT6.png)
+
 ## Background and overview 
 
 This game is inspired by games like asteroid. It will be a simple first person shooter where the targets come in and out of frame. As you survive longer, more enemies will appear and will move/shoot at you faster. Your goal is not to dodge their shots but to shoot them before you are destroyed. It's a basic survival game. 
