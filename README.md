@@ -25,3 +25,24 @@ The tie fighter will be destroyable and when hit with a lazer they will explode 
 ## Architecture and technologies 
 
 To render the graphics to the page I'll use canvas. The game will be simply build with a series of classes which will have a set of rules. There will be a tie fighters class which will randomly choose an entry and exit point on the screen. They will then maneuver in a straight line across the window. As they pass through the users view their size will increase as will the rate at which they fire at you. 
+
+## Implementation Timeline
+
+  ** Day 1 **
+   - [ ] Review canvas and get page rendering with slow rotating background.
+   - [ ] Start writing tie fighter class.
+   
+   ** Day 2 ** 
+   - [ ] Get tie fighters flying across the screen and shooting. 
+   - [ ] Get user damage level to rise when hit. 
+   
+   ** Day 3 ** 
+   - [ ] Implement sight and have it be moveable across the screen. 
+   - [ ] Have clicking destroy tie fighters. 
+   - [ ] Have tie fighters explode when shot.
+   
+   ** Day 4 ** 
+   - [ ] Add sound effects and additional visual improvements. 
+   
+   ** Day 5 ** 
+   - [ ] Cleanup and push to heroku/github pages.
