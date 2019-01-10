@@ -200,27 +200,51 @@ __webpack_require__.r(__webpack_exports__);
 
 class Game {
   constructor(canvas) {
-    let difficulty = 1
-    let killedTieFighters = 0
+    this.difficulty = 1
+    this.killedTieFighters = 0
+    this.drawBG = this.drawBG.bind(this)
+    this.drawEnemy = this.drawEnemy.bind(this)
+    // this.createLevel = this.createLevel.bind(this)
+
     this.draw = this.draw.bind(this)
+    this.enemy = new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]()   
+    // this.createLevel()
     this.bg = new _background__WEBPACK_IMPORTED_MODULE_1__["default"]()
-    this.enemy = new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]()
     setInterval(this.draw, 40);
   }
 
-  draw() { 
-    this.bg.draw()
-    // for testing purposes
-    // +++++++++++++
-
-    this.enemy.draw()
-
-
-    // +++++++++++++
+  draw() {
+    this.drawBG()
+    // this.drawEnemy()
   }
 
-  play() {
+  drawEnemy() {
     
+    let enemy = this.enemy
+    
+    setInterval(function() {
+      enemy.draw()
+    }, 40)
+  }
+
+  drawBG() { 
+    this.bg.draw()
+  }
+
+  // createLevel() {
+  //   setTimeout(function() {
+  //     this.enemy.push(new TieFighter())
+  //   }, this.difficulty * 1000)
+  // }
+
+  play() {
+    setInterval(this.drawEnemy(), 1000)
+    let enemy = this.enemy
+
+    document.getElementById('canvas').addEventListener('click', function (evt) {
+      // alert(evt.clientX + ',' + evt.clientY);
+      enemy.shootAt(evt.clientX, evt.clientY)
+    }, false);
   }
 };
 
@@ -243,7 +267,7 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('canvas');
   const game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas)
-  // game.play()
+  game.play()
 
 });
 
@@ -264,7 +288,7 @@ class TieFighter{
     this.img = new Image();
     this.img.src = '../assets/tie_fighter.png';
     this.accel = this.getAccel()
-    console.log(this.accel.slice());
+    // console.log(this.accel.slice());
     if (this.accel[0] < 0) {
       this.vel = [-3, -3]
     } else {
@@ -273,6 +297,9 @@ class TieFighter{
     this.size = [100, 100]
     this.destroyed = false
     this.rotate = ((this.getRandomRange(-24, 24)) * Math.PI / 180)
+
+    this.canvas = document.getElementById('canvas');
+    this.ctx = this.canvas.getContext('2d');
   }
 
   getRandomRange(min, max) {
@@ -299,15 +326,7 @@ class TieFighter{
     let x = Math.floor(Math.random() * maxWidth); 
     let y = Math.floor(Math.random() * maxHeight); 
 
-    // let x = this.getRandomRange(-maxWidth, maxWidth)
-    // let y = this.getRandomRange(-maxHeight, maxHeight)
-
     let chooser = Math.floor(Math.random() * 4);
-    // if (chooser % 2 === 0) {
-    //   x = -100
-    // } else {
-    //   y = -100
-    // }
     switch (chooser) {
       case 0:
         x = -50
@@ -329,25 +348,45 @@ class TieFighter{
 
   draw() {
 
-    const canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext('2d');
-    ctx.save()    
+    // const canvas = document.getElementById('canvas');
+    // let ctx = canvas.getContext('2d');
+    this.ctx.save()    
 
     this.vel[0] += this.accel[0]
     this.vel[1] += this.accel[1]
     this.size[0] += Math.abs(this.vel[0] * 0.7)
     this.size[1] += Math.abs(this.vel[0] * 0.7)
+    if (this.destroyed) {
+      this.size[0] += Math.abs(this.vel[0] * 0.7) * 2
+      this.size[1] += Math.abs(this.vel[0] * 0.7) * 2
+      this.vel[0] += (this.accel[0] * 3)
+      this.vel[1] += (this.accel[1] * 3)
+    }
     this.pos[0] += this.vel[0]
     this.pos[1] += this.vel[1]
 
-    ctx.translate(this.pos[0] - (this.size[0] / 2), this.pos[1] - (this.size[1] / 2))
-    ctx.rotate(this.rotate)
-    ctx.drawImage(this.img, 0, 0, this.size[0], this.size[1])
-    ctx.restore()
+    this.ctx.translate(this.pos[0] - (this.size[0] / 2), this.pos[1] - (this.size[1] / 2))
+    this.ctx.rotate(this.rotate)
+    this.ctx.drawImage(this.img, 0, 0, this.size[0], this.size[1])
+    this.ctx.restore()
+  }
+
+  shootAt(x, y) {
+    console.log(this.pos[0], this.pos[1]);
+    console.log(x, y);
+    
+    
+    if (x > this.pos[0] && x <= this.pos[0] + this.size[0]) {
+      if (y >= this.pos[1] && y <= this.pos[1] + this.size[1]) {
+        this.destroy()
+      }
+    }
   }
 
   destroy() {
     //destroys them
+    this.img.src = '../assets/explosion.png';
+    this.destroyed = true;
   }
 
   fire() {
