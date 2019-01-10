@@ -1,7 +1,17 @@
 class TieFighter{
   constructor(pos, vel) {
-    let pos = pos
-    let vel = vel
+    this.pos = pos
+    this.vel = vel
+  }
+
+  draw() {
+
+    const canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let img = new Image();
+    
+    img.src = '../assets/tie_fighter.png';
+    ctx.drawImage(img, 100, 100, 100, 100)
   }
 
   destroy() {
@@ -13,4 +23,4 @@ class TieFighter{
   }
 }
 
-export default Game
+export default TieFighter

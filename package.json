@@ -18,7 +18,8 @@
     "url": "https://github.com/TheoObbard/starwars-game/issues"
   },
   "homepage": "https://github.com/TheoObbard/starwars-game#readme",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "webpack": "^4.28.1",
     "webpack-cli": "^3.2.1"
   }

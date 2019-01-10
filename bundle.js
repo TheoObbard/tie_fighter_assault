@@ -86,6 +86,93 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/background.js":
+/*!***************************!*\
+  !*** ./src/background.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+class Background {
+  constructor() {
+    this.img = new Image();
+
+    this.img.src = '../assets/stars.png';
+    this.CanvasXSize = window.innerWidth;
+    this.CanvasYSize = window.innerHeight;
+    this.scale = 1.05;
+    this.y = -4.5;
+
+    this.dx = 0.75;
+    this.imgW = window.innerWidth;
+    this.imgH = window.innerHeight;
+    this.x = 0;
+    this.clearX;
+    this.clearY;
+    // let ctx;
+
+    this.img.onload = function () {
+
+      if (this.imgW > this.CanvasXSize) {
+        this.x = this.CanvasXSize - this.imgW;
+      }
+      if (this.imgW > this.CanvasXSize) {
+        this.clearX = this.imgW;
+      } else {
+        this.clearX = this.CanvasXSize;
+      }
+      if (this.imgH > this.CanvasYSize) {
+        this.clearY = this.imgH;
+      } else {
+        this.clearY = this.CanvasYSize;
+      }
+
+      const canvas = document.getElementById('canvas');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      // ctx = canvas.getContext('2d');
+
+
+    }
+    // setInterval(this.draw, 40);
+
+  }
+
+  draw() {
+    let ctx;
+    const canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, this.clearX, this.clearY);
+
+    if (this.imgW <= this.CanvasXSize) {      
+      if (this.x > this.CanvasXSize) {
+        this.x = -this.imgW + this.x;
+      }
+      if (this.x > 0) {
+        ctx.drawImage(this.img, -this.imgW + this.x, this.y, this.imgW, this.imgH);
+      }
+      if (this.x - this.imgW > 0) {
+        ctx.drawImage(this.img, -this.imgW * 2 + this.x, this.y, this.imgW, this.imgH);
+      }
+    } else {
+      if (this.x > (this.CanvasXSize)) {
+        this.x = this.CanvasXSize - this.imgW;
+      }
+      if (this.x > (this.CanvasXSize - this.imgW)) {
+        ctx.drawImage(this.img, this.x - this.imgW + 1, this.y, this.imgW, this.imgH);
+      }
+    }
+    ctx.drawImage(this.img, this.x, this.y, this.imgW, this.imgH);
+    this.x += this.dx;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Background);
+
+/***/ }),
+
 /***/ "./src/game.js":
 /*!*********************!*\
   !*** ./src/game.js ***!
@@ -95,89 +182,35 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-// import Background from './background';
+/* harmony import */ var _tie_fighters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tie_fighters */ "./src/tie_fighters.js");
+/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./background */ "./src/background.js");
+
+
 
 class Game {
   constructor(canvas) {
-    // const background = new Background()
-    // let canvas = canvas
-    // canvas.innerHTML = background.draw()
-    // let killedTieFighters = 0
+    let difficulty = 1
+    let killedTieFighters = 0
+    setInterval(this.draw, 40);
+  }
+
+  draw() { 
+       
+    // creates background
+    const bg = new _background__WEBPACK_IMPORTED_MODULE_1__["default"]()
+
+    bg.draw()
+    // for testing purposes
+    // +++++++++++++
+    const enemy = new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]()
+    enemy.draw()
+    // +++++++++++++
   }
 
   play() {
-
+    
   }
-
-  background() {
-    let img = new Image();
-
-    img.src = '../assets/stars.png';
-    let CanvasXSize = window.innerWidth;
-    let CanvasYSize = window.innerHeight;
-    let speed = 40;
-    let scale = 1.05;
-    let y = -4.5;
-
-    let dx = 0.75;
-    let imgW = window.innerWidth;
-    let imgH = window.innerHeight;
-    let x = 0;
-    let clearX;
-    let clearY;
-    let ctx;
-
-    img.onload = function () {
-
-
-      if (imgW > CanvasXSize) {
-        x = CanvasXSize - imgW;
-      }
-      if (imgW > CanvasXSize) {
-        clearX = imgW;
-      } else {
-        clearX = CanvasXSize;
-      }
-      if (imgH > CanvasYSize) {
-        clearY = imgH;
-      } else {
-        clearY = CanvasYSize;
-      }
-
-      const canvas = document.getElementById('canvas');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      ctx = canvas.getContext('2d');
-
-      return setInterval(draw, speed);
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, clearX, clearY);
-
-      if (imgW <= CanvasXSize) {
-        if (x > CanvasXSize) {
-          x = -imgW + x;
-        }
-        if (x > 0) {
-          ctx.drawImage(img, -imgW + x, y, imgW, imgH);
-        }
-        if (x - imgW > 0) {
-          ctx.drawImage(img, -imgW * 2 + x, y, imgW, imgH);
-        }
-      } else {
-        if (x > (CanvasXSize)) {
-          x = CanvasXSize - imgW;
-        }
-        if (x > (CanvasXSize - imgW)) {
-          ctx.drawImage(img, x - imgW + 1, y, imgW, imgH);
-        }
-      }
-      ctx.drawImage(img, x, y, imgW, imgH);
-      x += dx;
-    }
-  }
-}
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (Game);
 
@@ -198,9 +231,47 @@ __webpack_require__.r(__webpack_exports__);
 document.addEventListener('DOMContentLoaded', () => {
   const canvas = document.getElementById('canvas');
   const game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas)
-  game.background()
+  // game.play()
 
 });
+
+/***/ }),
+
+/***/ "./src/tie_fighters.js":
+/*!*****************************!*\
+  !*** ./src/tie_fighters.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+class TieFighter{
+  constructor(pos, vel) {
+    this.pos = pos
+    this.vel = vel
+  }
+
+  draw() {
+
+    const canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let img = new Image();
+    
+    img.src = '../assets/tie_fighter.png';
+    ctx.drawImage(img, 100, 100, 100, 100)
+  }
+
+  destroy() {
+    //destroys them
+  }
+
+  fire() {
+    //they shoot at us and we take damage
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (TieFighter);
 
 /***/ })
 
