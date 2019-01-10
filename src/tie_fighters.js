@@ -4,7 +4,6 @@ class TieFighter{
     this.img = new Image();
     this.img.src = '../assets/tie_fighter.png';
     this.accel = this.getAccel()
-    // console.log(this.accel.slice());
     if (this.accel[0] < 0) {
       this.vel = [-3, -3]
     } else {
@@ -32,13 +31,8 @@ class TieFighter{
 
   randomPos() {
     let maxWidth = window.innerWidth;
-    let maxHeight = window.innerHeight;
-
-    console.log(maxWidth);
-    console.log(maxHeight);
-    
-    
-
+    let maxHeight = window.innerHeight;    
+  
     let x = Math.floor(Math.random() * maxWidth); 
     let y = Math.floor(Math.random() * maxHeight); 
 
@@ -63,9 +57,6 @@ class TieFighter{
   }
 
   draw() {
-
-    // const canvas = document.getElementById('canvas');
-    // let ctx = canvas.getContext('2d');
     this.ctx.save()    
 
     this.vel[0] += this.accel[0]
@@ -81,23 +72,19 @@ class TieFighter{
     this.pos[0] += this.vel[0]
     this.pos[1] += this.vel[1]
 
-    this.ctx.translate(this.pos[0] - (this.size[0] / 2), this.pos[1] - (this.size[1] / 2))
+    this.ctx.translate(this.pos[0], this.pos[1])
     this.ctx.rotate(this.rotate)
-    this.ctx.drawImage(this.img, 0, 0, this.size[0], this.size[1])
+    this.ctx.drawImage(this.img, -(this.size[0] / 2), - (this.size[1] / 2), this.size[0], this.size[1])
     this.ctx.restore()
   }
 
   shootAt(x, y) {
-    console.log(this.pos[0], this.pos[1]);
-    console.log(x, y);
-    
-    
-    if (x > this.pos[0] && x <= this.pos[0] + this.size[0]) {
-      if (y >= this.pos[1] && y <= this.pos[1] + this.size[1]) {
+    if (x > this.pos[0] - (this.size[0] / 2) && x <= this.pos[0] + (this.size[0] / 2)) {
+      if (y >= this.pos[1] - (this.size[1] / 2) && y <= this.pos[1] + (this.size[0] / 2)) {
         this.destroy()
       }
     }
-  }
+  };
 
   destroy() {
     //destroys them

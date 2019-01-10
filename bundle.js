@@ -111,7 +111,6 @@ class Background {
     this.x = 0;
     this.clearX;
     this.clearY;
-    // let ctx;
 
     this.img.onload = function () {
 
@@ -129,23 +128,11 @@ class Background {
         this.clearY = this.CanvasYSize;
       }
 
-      // const canvas = document.getElementById('canvas');
-      // canvas.width = window.innerWidth;
-      // canvas.height = window.innerHeight;
-
-      // ctx = canvas.getContext('2d');
-
-
     }
-    // setInterval(this.draw, 40);
     this.draw = this.draw.bind(this)
-
   }
 
-  draw() {   
-    
-    // console.log('getting called');
-    
+  draw() {       
     let ctx;
     let canvas = document.getElementById('canvas');
     canvas.width = window.innerWidth;
@@ -173,9 +160,6 @@ class Background {
       }
     }    
     ctx.drawImage(this.img, this.x, this.y, this.imgW, this.imgH);
-
-    // console.log(this.x);
-
     this.x += this.dx;
   }
 };
@@ -204,46 +188,58 @@ class Game {
     this.killedTieFighters = 0
     this.drawBG = this.drawBG.bind(this)
     this.drawEnemy = this.drawEnemy.bind(this)
-    // this.createLevel = this.createLevel.bind(this)
-
     this.draw = this.draw.bind(this)
-    this.enemy = new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]()   
-    // this.createLevel()
+    this.enemies = [new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]()]   
     this.bg = new _background__WEBPACK_IMPORTED_MODULE_1__["default"]()
     setInterval(this.draw, 40);
-  }
+    setInterval(() => {
+      this.enemies.push(new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]())
+      console.log(this.enemies.length);
+      
+    } , 1000)
+
+    // This clears out enemies after they leave the screen
+    setTimeout(() => {
+      setInterval(() => {
+        this.enemies.shift()
+      }, 1000)
+    }, 2000)
+  };
 
   draw() {
     this.drawBG()
-    // this.drawEnemy()
+    this.drawEnemies()
+  }
+
+  drawEnemies() {
+    this.enemies.map(enemy => {
+      enemy.draw()
+    })
   }
 
   drawEnemy() {
     
-    let enemy = this.enemy
-    
-    setInterval(function() {
-      enemy.draw()
-    }, 40)
+    let enemies = this.enemy
+    enemies.forEach(enemy => {
+      setTimeout(function () { }, 1000)
+
+      setInterval(function () {
+        enemy.draw()
+      }, 40)
+    });
   }
 
   drawBG() { 
     this.bg.draw()
   }
 
-  // createLevel() {
-  //   setTimeout(function() {
-  //     this.enemy.push(new TieFighter())
-  //   }, this.difficulty * 1000)
-  // }
-
   play() {
-    setInterval(this.drawEnemy(), 1000)
-    let enemy = this.enemy
+    let enemies = this.enemies
 
     document.getElementById('canvas').addEventListener('click', function (evt) {
-      // alert(evt.clientX + ',' + evt.clientY);
-      enemy.shootAt(evt.clientX, evt.clientY)
+      enemies.forEach(enemy => {
+        enemy.shootAt(evt.clientX, evt.clientY)
+      })
     }, false);
   }
 };
@@ -288,7 +284,6 @@ class TieFighter{
     this.img = new Image();
     this.img.src = '../assets/tie_fighter.png';
     this.accel = this.getAccel()
-    // console.log(this.accel.slice());
     if (this.accel[0] < 0) {
       this.vel = [-3, -3]
     } else {
@@ -316,13 +311,8 @@ class TieFighter{
 
   randomPos() {
     let maxWidth = window.innerWidth;
-    let maxHeight = window.innerHeight;
-
-    console.log(maxWidth);
-    console.log(maxHeight);
-    
-    
-
+    let maxHeight = window.innerHeight;    
+  
     let x = Math.floor(Math.random() * maxWidth); 
     let y = Math.floor(Math.random() * maxHeight); 
 
@@ -347,9 +337,6 @@ class TieFighter{
   }
 
   draw() {
-
-    // const canvas = document.getElementById('canvas');
-    // let ctx = canvas.getContext('2d');
     this.ctx.save()    
 
     this.vel[0] += this.accel[0]
@@ -365,23 +352,19 @@ class TieFighter{
     this.pos[0] += this.vel[0]
     this.pos[1] += this.vel[1]
 
-    this.ctx.translate(this.pos[0] - (this.size[0] / 2), this.pos[1] - (this.size[1] / 2))
+    this.ctx.translate(this.pos[0], this.pos[1])
     this.ctx.rotate(this.rotate)
-    this.ctx.drawImage(this.img, 0, 0, this.size[0], this.size[1])
+    this.ctx.drawImage(this.img, -(this.size[0] / 2), - (this.size[1] / 2), this.size[0], this.size[1])
     this.ctx.restore()
   }
 
   shootAt(x, y) {
-    console.log(this.pos[0], this.pos[1]);
-    console.log(x, y);
-    
-    
-    if (x > this.pos[0] && x <= this.pos[0] + this.size[0]) {
-      if (y >= this.pos[1] && y <= this.pos[1] + this.size[1]) {
+    if (x > this.pos[0] - (this.size[0] / 2) && x <= this.pos[0] + (this.size[0] / 2)) {
+      if (y >= this.pos[1] - (this.size[1] / 2) && y <= this.pos[1] + (this.size[0] / 2)) {
         this.destroy()
       }
     }
-  }
+  };
 
   destroy() {
     //destroys them

@@ -14,7 +14,6 @@ class Background {
     this.x = 0;
     this.clearX;
     this.clearY;
-    // let ctx;
 
     this.img.onload = function () {
 
@@ -32,23 +31,11 @@ class Background {
         this.clearY = this.CanvasYSize;
       }
 
-      // const canvas = document.getElementById('canvas');
-      // canvas.width = window.innerWidth;
-      // canvas.height = window.innerHeight;
-
-      // ctx = canvas.getContext('2d');
-
-
     }
-    // setInterval(this.draw, 40);
     this.draw = this.draw.bind(this)
-
   }
 
-  draw() {   
-    
-    // console.log('getting called');
-    
+  draw() {       
     let ctx;
     let canvas = document.getElementById('canvas');
     canvas.width = window.innerWidth;
@@ -76,9 +63,6 @@ class Background {
       }
     }    
     ctx.drawImage(this.img, this.x, this.y, this.imgW, this.imgH);
-
-    // console.log(this.x);
-
     this.x += this.dx;
   }
 };

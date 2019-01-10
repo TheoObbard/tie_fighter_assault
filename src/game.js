@@ -7,46 +7,58 @@ class Game {
     this.killedTieFighters = 0
     this.drawBG = this.drawBG.bind(this)
     this.drawEnemy = this.drawEnemy.bind(this)
-    // this.createLevel = this.createLevel.bind(this)
-
     this.draw = this.draw.bind(this)
-    this.enemy = new TieFighter()   
-    // this.createLevel()
+    this.enemies = [new TieFighter(), new TieFighter(), new TieFighter()]   
     this.bg = new Background()
     setInterval(this.draw, 40);
-  }
+    setInterval(() => {
+      this.enemies.push(new TieFighter())
+      console.log(this.enemies.length);
+      
+    } , 1000)
+
+    // This clears out enemies after they leave the screen
+    setTimeout(() => {
+      setInterval(() => {
+        this.enemies.shift()
+      }, 1000)
+    }, 2000)
+  };
 
   draw() {
     this.drawBG()
-    // this.drawEnemy()
+    this.drawEnemies()
+  }
+
+  drawEnemies() {
+    this.enemies.map(enemy => {
+      enemy.draw()
+    })
   }
 
   drawEnemy() {
     
-    let enemy = this.enemy
-    
-    setInterval(function() {
-      enemy.draw()
-    }, 40)
+    let enemies = this.enemy
+    enemies.forEach(enemy => {
+      setTimeout(function () { }, 1000)
+
+      setInterval(function () {
+        enemy.draw()
+      }, 40)
+    });
   }
 
   drawBG() { 
     this.bg.draw()
   }
 
-  // createLevel() {
-  //   setTimeout(function() {
-  //     this.enemy.push(new TieFighter())
-  //   }, this.difficulty * 1000)
-  // }
-
   play() {
-    setInterval(this.drawEnemy(), 1000)
-    let enemy = this.enemy
+    let enemies = this.enemies
 
     document.getElementById('canvas').addEventListener('click', function (evt) {
-      // alert(evt.clientX + ',' + evt.clientY);
-      enemy.shootAt(evt.clientX, evt.clientY)
+      enemies.forEach(enemy => {
+        enemy.shootAt(evt.clientX, evt.clientY)
+      })
     }, false);
   }
 };
