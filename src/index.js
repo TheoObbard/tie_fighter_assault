@@ -1,8 +1,8 @@
-function component() {
-  let element = document.createElement('canvas');
-  element.innerHTML = require('./background.js');
+import Game from './game';
 
-  return element;
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('canvas');
+  const game = new Game(canvas)
+  game.background()
 
-document.body.appendChild(component());
+});

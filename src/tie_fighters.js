@@ -13,4 +13,4 @@ class TieFighter{
   }
 }
 
-module.exports = TieFighter
+export default Game
