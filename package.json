@@ -1,0 +1,25 @@
+{
+  "name": "star_wars",
+  "version": "1.0.0",
+  "description": "Star Wars Game!",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", 
+    "start": "webpack --watch --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheoObbard/starwars-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheoObbard/starwars-game/issues"
+  },
+  "homepage": "https://github.com/TheoObbard/starwars-game#readme",
+  "dependencies": {
+    "webpack": "^4.28.1",
+    "webpack-cli": "^3.2.1"
+  }
+}

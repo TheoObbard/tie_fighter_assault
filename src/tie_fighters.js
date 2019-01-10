@@ -3,10 +3,6 @@ class TieFighter{
     let pos = pos
     let vel = vel
   }
-
-  // draw() {
-
-  // }
 }
 
 module.exports = TieFighter
