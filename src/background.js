@@ -16,7 +16,6 @@ let clearY;
 let ctx;
 
 img.onload = function () {
-  
 
   if (imgW > CanvasXSize) {
     x = CanvasXSize - imgW;
