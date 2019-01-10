@@ -5,19 +5,20 @@ class Game {
   constructor(canvas) {
     let difficulty = 1
     let killedTieFighters = 0
+    this.draw = this.draw.bind(this)
+    this.bg = new Background()
+    this.enemy = new TieFighter()
     setInterval(this.draw, 40);
   }
 
   draw() { 
-       
-    // creates background
-    const bg = new Background()
-
-    bg.draw()
+    this.bg.draw()
     // for testing purposes
     // +++++++++++++
-    const enemy = new TieFighter()
-    enemy.draw()
+
+    this.enemy.draw()
+
+
     // +++++++++++++
   }
 

@@ -129,25 +129,33 @@ class Background {
         this.clearY = this.CanvasYSize;
       }
 
-      const canvas = document.getElementById('canvas');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      // const canvas = document.getElementById('canvas');
+      // canvas.width = window.innerWidth;
+      // canvas.height = window.innerHeight;
+
       // ctx = canvas.getContext('2d');
 
 
     }
     // setInterval(this.draw, 40);
+    this.draw = this.draw.bind(this)
 
   }
 
-  draw() {
+  draw() {   
+    
+    // console.log('getting called');
+    
     let ctx;
-    const canvas = document.getElementById('canvas');
+    let canvas = document.getElementById('canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     ctx = canvas.getContext('2d');
+    
     ctx.clearRect(0, 0, this.clearX, this.clearY);
 
     if (this.imgW <= this.CanvasXSize) {      
-      if (this.x > this.CanvasXSize) {
+      if (this.x > this.CanvasXSize) {        
         this.x = -this.imgW + this.x;
       }
       if (this.x > 0) {
@@ -157,14 +165,17 @@ class Background {
         ctx.drawImage(this.img, -this.imgW * 2 + this.x, this.y, this.imgW, this.imgH);
       }
     } else {
-      if (this.x > (this.CanvasXSize)) {
+      if (this.x > (this.CanvasXSize)) {        
         this.x = this.CanvasXSize - this.imgW;
       }
       if (this.x > (this.CanvasXSize - this.imgW)) {
         ctx.drawImage(this.img, this.x - this.imgW + 1, this.y, this.imgW, this.imgH);
       }
-    }
+    }    
     ctx.drawImage(this.img, this.x, this.y, this.imgW, this.imgH);
+
+    // console.log(this.x);
+
     this.x += this.dx;
   }
 };
@@ -191,19 +202,20 @@ class Game {
   constructor(canvas) {
     let difficulty = 1
     let killedTieFighters = 0
+    this.draw = this.draw.bind(this)
+    this.bg = new _background__WEBPACK_IMPORTED_MODULE_1__["default"]()
+    this.enemy = new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]()
     setInterval(this.draw, 40);
   }
 
   draw() { 
-       
-    // creates background
-    const bg = new _background__WEBPACK_IMPORTED_MODULE_1__["default"]()
-
-    bg.draw()
+    this.bg.draw()
     // for testing purposes
     // +++++++++++++
-    const enemy = new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]()
-    enemy.draw()
+
+    this.enemy.draw()
+
+
     // +++++++++++++
   }
 
@@ -247,9 +259,35 @@ document.addEventListener('DOMContentLoaded', () => {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 class TieFighter{
-  constructor(pos, vel) {
-    this.pos = pos
-    this.vel = vel
+  constructor() {
+    this.pos = this.randomPos()
+    this.vel = [3, 3]
+    this.size = [100, 100]
+    this.destroyed = false
+    this.rotate = ((this.getRandomRange(-50, 50)) * Math.PI / 180)
+  }
+
+  getRandomRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  randomPos() {
+    let maxWidth = window.innerWidth;
+    let maxHeight = window.innerHeight;
+
+    let x = Math.floor(Math.random() * maxWidth); 
+    let y = Math.floor(Math.random() * maxHeight); 
+
+    // let x = this.getRandomRange(-maxWidth, maxWidth)
+    // let y = this.getRandomRange(-maxHeight, maxHeight)
+
+    let chooser = Math.floor(Math.random() * 2);
+    if (chooser % 2 === 0) {
+      x = 0
+    } else {
+      y = 0
+    }
+    return [x, y]
   }
 
   draw() {
@@ -257,9 +295,20 @@ class TieFighter{
     const canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
     let img = new Image();
+    ctx.rotate(this.rotate);
+
     
     img.src = '../assets/tie_fighter.png';
-    ctx.drawImage(img, 100, 100, 100, 100)
+
+    this.vel[0] += .5
+    this.vel[1] += .5
+    this.size[0] += this.vel[0]
+    this.size[1] += this.vel[0]
+    this.pos[0] += this.vel[0]
+    this.pos[1] += this.vel[1]
+
+    ctx.drawImage(img, this.pos[0], this.pos[1], this.size[0], this.size[1])
+
   }
 
   destroy() {
