@@ -242,6 +242,7 @@ class Game {
     let enemies = this.enemies
     document.getElementById('canvas').addEventListener('click', function (evt) {
       let shot = new _shot__WEBPACK_IMPORTED_MODULE_2__["default"](evt.clientX, evt.clientY)
+      shot.draw()
       enemies.forEach(enemy => {
         enemy.shootAt(evt.clientX, evt.clientY)
       })
@@ -289,19 +290,38 @@ class Shot {
     this.mouse = [x, y]
     this.content = document.getElementById('canvas')
     this.ctx = this.content.getContext("2d");
+    this.start = window.innerWidth
   }
 
   draw() {
-    this.ctx.beginPath();
-    this.ctx.moveTo(0, 0);
-    this.ctx.lineTo(300, 150);
-    this.context.lineWidth = 10;
+    this.shot1()
+    setTimeout(() => {
+      this.shot2()
+    }, 15)
+  }
 
-    this.context.strokeStyle = '#ff0000';
+  shot1() {
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.start / 2 - 200, window.innerHeight);
+    this.ctx.lineTo(this.mouse[0] + 46, this.mouse[1] + 48);
+    this.ctx.lineWidth = 5;
+
+    this.ctx.strokeStyle = '#fd946e';
+    this.ctx.stroke();
+  }
+
+  shot2() {
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.start / 2 + 200, window.innerHeight);
+    this.ctx.lineTo(this.mouse[0] + 46, this.mouse[1] + 48);
+    this.ctx.lineWidth = 5;
+
+    this.ctx.strokeStyle = '#fd946e';
     this.ctx.stroke();
   }
 
 }
+
 
 /* harmony default export */ __webpack_exports__["default"] = (Shot);
 

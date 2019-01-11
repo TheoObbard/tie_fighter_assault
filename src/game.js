@@ -60,6 +60,7 @@ class Game {
     let enemies = this.enemies
     document.getElementById('canvas').addEventListener('click', function (evt) {
       let shot = new Shot(evt.clientX, evt.clientY)
+      shot.draw()
       enemies.forEach(enemy => {
         enemy.shootAt(evt.clientX, evt.clientY)
       })
