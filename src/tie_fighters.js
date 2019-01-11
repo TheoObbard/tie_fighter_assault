@@ -107,7 +107,11 @@ class TieFighter{
     this.img.src = '../assets/tie_fighter_shoot.png';
 
     setTimeout(() => {
-      this.img.src = '../assets/tie_fighter.png';
+      if (this.destroyed) {
+        this.img.src = '../assets/explosion.png';
+      } else {
+        this.img.src = '../assets/tie_fighter.png';
+      }
     }, 5)
   }
 }
