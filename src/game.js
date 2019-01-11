@@ -37,7 +37,6 @@ class Game {
   }
 
   drawEnemy() {
-    
     let enemies = this.enemy
     enemies.forEach(enemy => {
       setTimeout(function () { }, 1000)
@@ -60,6 +59,7 @@ class Game {
         enemy.shootAt(evt.clientX, evt.clientY)
       })
     }, false);
+
   }
 };
 
