@@ -20,10 +20,13 @@ class Game {
     // This clears out enemies after they leave the screen
     setTimeout(() => {
       setInterval(() => {
-        this.enemies.shift()
+        let check = this.enemies.shift()
+        // as it removes them it checks for their destroyed status
+        if (check.destroyed) {
+          this.killedTieFighters += 1
+        }
       }, 1000)
     }, 2000)
-
   };
 
   draw() {
@@ -41,7 +44,6 @@ class Game {
     let enemies = this.enemy
     enemies.forEach(enemy => {
       setTimeout(function () { }, 1000)
-
       setInterval(function () {
         enemy.draw()
       }, 40)
@@ -53,12 +55,9 @@ class Game {
   }
 
   play() {
-    
     let enemies = this.enemies
-
     document.getElementById('canvas').addEventListener('click', function (evt) {
       let shot = new Shot(evt.clientX, evt.clientY)
-
       enemies.forEach(enemy => {
         enemy.shootAt(evt.clientX, evt.clientY)
       })

@@ -202,10 +202,13 @@ class Game {
     // This clears out enemies after they leave the screen
     setTimeout(() => {
       setInterval(() => {
-        this.enemies.shift()
+        let check = this.enemies.shift()
+        // as it removes them it checks for their destroyed status
+        if (check.destroyed) {
+          this.killedTieFighters += 1
+        }
       }, 1000)
     }, 2000)
-
   };
 
   draw() {
@@ -223,7 +226,6 @@ class Game {
     let enemies = this.enemy
     enemies.forEach(enemy => {
       setTimeout(function () { }, 1000)
-
       setInterval(function () {
         enemy.draw()
       }, 40)
@@ -235,12 +237,9 @@ class Game {
   }
 
   play() {
-    
     let enemies = this.enemies
-
     document.getElementById('canvas').addEventListener('click', function (evt) {
       let shot = new _shot__WEBPACK_IMPORTED_MODULE_2__["default"](evt.clientX, evt.clientY)
-
       enemies.forEach(enemy => {
         enemy.shootAt(evt.clientX, evt.clientY)
       })
@@ -334,13 +333,11 @@ class TieFighter{
     this.size = [100, 100]
     this.destroyed = false
     this.rotate = ((this.getRandomRange(-24, 24)) * Math.PI / 180)
-
     this.canvas = document.getElementById('canvas');
     this.ctx = this.canvas.getContext('2d');
 
     // gets a random number of shots to fire and fires them
     this.shooting = this.getRandomRange(1, 4)
-
     setInterval(() => {
       if (this.destroyed === false) {
         this.fire()
@@ -364,10 +361,8 @@ class TieFighter{
   randomPos() {
     let maxWidth = window.innerWidth;
     let maxHeight = window.innerHeight;    
-  
     let x = Math.floor(Math.random() * maxWidth); 
     let y = Math.floor(Math.random() * maxHeight); 
-
     let chooser = Math.floor(Math.random() * 4);
     switch (chooser) {
       case 0:
@@ -390,7 +385,6 @@ class TieFighter{
 
   draw() {
     this.ctx.save()    
-
     this.vel[0] += this.accel[0]
     this.vel[1] += this.accel[1]
     this.size[0] += Math.abs(this.vel[0] * 0.7)
@@ -428,11 +422,6 @@ class TieFighter{
   destroy() {
     this.img.src = '../assets/explosion.png';
     this.destroyed = true;
-
-    //bug here
-    this.game.killedTieFighters += 1
-    console.log('killed enemies:' + this.game.killedTieFighters);
-    
   }
 
   fire() {
