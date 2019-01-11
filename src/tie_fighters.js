@@ -15,7 +15,17 @@ class TieFighter{
 
     this.canvas = document.getElementById('canvas');
     this.ctx = this.canvas.getContext('2d');
-  }
+
+    // gets a random number of shots to fire and fires them
+    this.shooting = this.getRandomRange(1, 4)
+
+
+    setInterval(() => {
+      if (this.destroyed === false) {
+        this.fire()
+      }
+    }, this.shooting * 100)
+  };
 
   getRandomRange(min, max) {
     return Math.random() * (max - min) + min;
@@ -87,13 +97,17 @@ class TieFighter{
   };
 
   destroy() {
-    //destroys them
     this.img.src = '../assets/explosion.png';
     this.destroyed = true;
   }
 
   fire() {
     //they shoot at us and we take damage
+    this.img.src = '../assets/tie_fighter_shoot.png';
+
+    setTimeout(() => {
+      this.img.src = '../assets/tie_fighter.png';
+    }, 5)
   }
 }
 

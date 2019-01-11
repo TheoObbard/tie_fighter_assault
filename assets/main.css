@@ -1,4 +1,24 @@
-#canvas {
+canvas {
 	cursor: pointer;
   cursor: url('MFsight99.png') 2 2, pointer;
+  z-index: 1;
 }
+
+/* body {
+  background-image: url('useCockpit.png');
+  z-index: 100;
+} */
+
+/* .screen {
+  position: relative;
+}
+
+.screen canvas, .falcon {
+  position: absolute;
+}
+
+.falcon {
+  background-image: url('useCockpit.png');
+  z-index: 2;
+  /* z-index: 100; */
+/* } */
