@@ -179,6 +179,8 @@ class Background {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tie_fighters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tie_fighters */ "./src/tie_fighters.js");
 /* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./background */ "./src/background.js");
+/* harmony import */ var _shot__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shot */ "./src/shot.js");
+
 
 
 
@@ -236,6 +238,8 @@ class Game {
     let enemies = this.enemies
 
     document.getElementById('canvas').addEventListener('click', function (evt) {
+      let shot = new _shot__WEBPACK_IMPORTED_MODULE_2__["default"](evt.clientX, evt.clientY)
+
       enemies.forEach(enemy => {
         enemy.shootAt(evt.clientX, evt.clientY)
       })
@@ -269,6 +273,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /***/ }),
 
+/***/ "./src/shot.js":
+/*!*********************!*\
+  !*** ./src/shot.js ***!
+  \*********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+class Shot {
+  constructor(x, y) {
+    console.log('shot fired!');
+    console.log(x, y);
+    
+  }
+
+  draw() {
+
+  }
+
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Shot);
+
+/***/ }),
+
 /***/ "./src/tie_fighters.js":
 /*!*****************************!*\
   !*** ./src/tie_fighters.js ***!
@@ -278,6 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+
 class TieFighter{
   constructor() {
     this.pos = this.randomPos()

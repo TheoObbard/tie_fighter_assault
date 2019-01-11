@@ -1,3 +1,4 @@
+
 class TieFighter{
   constructor() {
     this.pos = this.randomPos()
