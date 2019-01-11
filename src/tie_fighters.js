@@ -1,6 +1,7 @@
 
 class TieFighter{
-  constructor() {
+  constructor(game) {
+    this.game = game
     this.pos = this.randomPos()
     this.img = new Image();
     this.img.src = '../assets/tie_fighter.png';
@@ -20,10 +21,10 @@ class TieFighter{
     // gets a random number of shots to fire and fires them
     this.shooting = this.getRandomRange(1, 4)
 
-
     setInterval(() => {
       if (this.destroyed === false) {
         this.fire()
+        this.game.damage += .01
       }
     }, this.shooting * 100)
   };
@@ -107,6 +108,11 @@ class TieFighter{
   destroy() {
     this.img.src = '../assets/explosion.png';
     this.destroyed = true;
+
+    //bug here
+    this.game.killedTieFighters += 1
+    console.log('killed enemies:' + this.game.killedTieFighters);
+    
   }
 
   fire() {

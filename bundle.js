@@ -188,16 +188,15 @@ class Game {
   constructor(canvas) {
     this.difficulty = 1
     this.killedTieFighters = 0
+    this.damage = 0
     this.drawBG = this.drawBG.bind(this)
     this.drawEnemy = this.drawEnemy.bind(this)
     this.draw = this.draw.bind(this)
-    this.enemies = [new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]()]   
+    this.enemies = [new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this)]   
     this.bg = new _background__WEBPACK_IMPORTED_MODULE_1__["default"]()
     setInterval(this.draw, 40);
     setInterval(() => {
-      this.enemies.push(new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"]())
-      console.log(this.enemies.length);
-      
+      this.enemies.push(new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this))      
     } , 1000)
 
     // This clears out enemies after they leave the screen
@@ -206,6 +205,7 @@ class Game {
         this.enemies.shift()
       }, 1000)
     }, 2000)
+
   };
 
   draw() {
@@ -235,6 +235,7 @@ class Game {
   }
 
   play() {
+    
     let enemies = this.enemies
 
     document.getElementById('canvas').addEventListener('click', function (evt) {
@@ -319,7 +320,8 @@ class Shot {
 __webpack_require__.r(__webpack_exports__);
 
 class TieFighter{
-  constructor() {
+  constructor(game) {
+    this.game = game
     this.pos = this.randomPos()
     this.img = new Image();
     this.img.src = '../assets/tie_fighter.png';
@@ -339,10 +341,10 @@ class TieFighter{
     // gets a random number of shots to fire and fires them
     this.shooting = this.getRandomRange(1, 4)
 
-
     setInterval(() => {
       if (this.destroyed === false) {
         this.fire()
+        this.game.damage += .01
       }
     }, this.shooting * 100)
   };
@@ -426,6 +428,11 @@ class TieFighter{
   destroy() {
     this.img.src = '../assets/explosion.png';
     this.destroyed = true;
+
+    //bug here
+    this.game.killedTieFighters += 1
+    console.log('killed enemies:' + this.game.killedTieFighters);
+    
   }
 
   fire() {

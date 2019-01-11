@@ -6,16 +6,15 @@ class Game {
   constructor(canvas) {
     this.difficulty = 1
     this.killedTieFighters = 0
+    this.damage = 0
     this.drawBG = this.drawBG.bind(this)
     this.drawEnemy = this.drawEnemy.bind(this)
     this.draw = this.draw.bind(this)
-    this.enemies = [new TieFighter(), new TieFighter(), new TieFighter()]   
+    this.enemies = [new TieFighter(this), new TieFighter(this), new TieFighter(this)]   
     this.bg = new Background()
     setInterval(this.draw, 40);
     setInterval(() => {
-      this.enemies.push(new TieFighter())
-      console.log(this.enemies.length);
-      
+      this.enemies.push(new TieFighter(this))      
     } , 1000)
 
     // This clears out enemies after they leave the screen
@@ -24,6 +23,7 @@ class Game {
         this.enemies.shift()
       }, 1000)
     }, 2000)
+
   };
 
   draw() {
@@ -53,6 +53,7 @@ class Game {
   }
 
   play() {
+    
     let enemies = this.enemies
 
     document.getElementById('canvas').addEventListener('click', function (evt) {
