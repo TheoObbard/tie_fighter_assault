@@ -83,6 +83,13 @@ class TieFighter{
     this.pos[0] += this.vel[0]
     this.pos[1] += this.vel[1]
 
+    if (this.rotate > 0) {
+      this.rotate -= .005
+    } else {
+      this.rotate += .005
+    }
+    
+
     this.ctx.translate(this.pos[0], this.pos[1])
     this.ctx.rotate(this.rotate)
     this.ctx.drawImage(this.img, -(this.size[0] / 2), - (this.size[1] / 2), this.size[0], this.size[1])
