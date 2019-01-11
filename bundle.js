@@ -212,6 +212,8 @@ class Game {
   };
 
   draw() {
+    document.getElementById('damage').innerHTML = `Damage: ${Math.floor(this.damage)}/100`;
+    document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
     this.drawBG()
     this.drawEnemies()
   }
@@ -284,12 +286,9 @@ document.addEventListener('DOMContentLoaded', () => {
 __webpack_require__.r(__webpack_exports__);
 class Shot {
   constructor(x, y) {
-    console.log('shot fired!');
-    console.log(x, y);
     this.mouse = [x, y]
     this.content = document.getElementById('canvas')
     this.ctx = this.content.getContext("2d");
-
   }
 
   draw() {

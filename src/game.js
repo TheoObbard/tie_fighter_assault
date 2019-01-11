@@ -30,6 +30,8 @@ class Game {
   };
 
   draw() {
+    document.getElementById('damage').innerHTML = `Damage: ${Math.floor(this.damage)}/100`;
+    document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
     this.drawBG()
     this.drawEnemies()
   }

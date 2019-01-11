@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="../assets/main.css" type='text/css'>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel='stylesheet' href='../assets/main.css' type='text/css'>
+  <meta charset='utf-8' />
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>StarWars Game</title>
-  <script src="https://unpkg.com/lodash@4.16.6"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src='https://unpkg.com/lodash@4.16.6'></script>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
   <style type='text/css'>
     canvas {
       border: 1px solid black;
@@ -19,9 +19,13 @@
   <script src='../bundle.js' type='text/javascript'></script>
 </head>
 <body>
-  <div class="screen">
+  <div class='screen'>
+    <div class='user_info'>
+      <h1 id='score'>SCORE: </h1>
+      <h1 id='damage'>DAMAGE: </h1>
+    </div>
     <canvas id='canvas'></canvas>
-    <div class="falcon"></div>
+    <!-- <div class='falcon'></div> -->
   </div>
 </body>
 </html>

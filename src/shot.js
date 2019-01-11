@@ -1,11 +1,8 @@
 class Shot {
   constructor(x, y) {
-    console.log('shot fired!');
-    console.log(x, y);
     this.mouse = [x, y]
     this.content = document.getElementById('canvas')
     this.ctx = this.content.getContext("2d");
-
   }
 
   draw() {

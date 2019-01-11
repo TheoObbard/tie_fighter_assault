@@ -1,24 +1,42 @@
-canvas {
+body {
 	cursor: pointer;
   cursor: url('MFsight99.png') 2 2, pointer;
   z-index: 1;
 }
 
-/* body {
-  background-image: url('useCockpit.png');
-  z-index: 100;
-} */
-
-/* .screen {
-  position: relative;
-}
-
-.screen canvas, .falcon {
+.user_info {
   position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-top: 92vh;
+  justify-content: flex-start;
 }
 
-.falcon {
-  background-image: url('useCockpit.png');
-  z-index: 2;
-  /* z-index: 100; */
-/* } */
+#damage {
+  font-size: 20px;
+  z-index: 10;
+  font-family: Distant Galaxy, sans-serif;
+  color: white;
+  margin-left: 50px;
+  font-weight: lighter;
+}
+
+#score {
+  font-size: 20px;
+  z-index: 10;
+  font-family: Distant Galaxy, sans-serif;
+  color: white;
+  font-weight: lighter;
+  margin-left: 10px;
+}
+
+canvas{
+    position: relative;
+    z-index: 1;
+}
+
+.screen {
+  position: relative;
+  display: inline-block;
+}
