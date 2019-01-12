@@ -178,25 +178,29 @@ class Background {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tie_fighters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tie_fighters */ "./src/tie_fighters.js");
-/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./background */ "./src/background.js");
-/* harmony import */ var _shot__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shot */ "./src/shot.js");
-/* harmony import */ var _sound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sound */ "./src/sound.js");
-
+/* harmony import */ var _shot__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./shot */ "./src/shot.js");
+/* harmony import */ var _sound__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sound */ "./src/sound.js");
 
 
 
 
 class Game {
-  constructor(canvas) {
+  constructor(background) {
     this.difficulty = 1
+    this.music;
     this.killedTieFighters = 0
     this.soundOn = false;
     this.damage = 0
     this.draw = this.draw.bind(this)
     this.enemies = [new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this)]   
-    this.bg = new _background__WEBPACK_IMPORTED_MODULE_1__["default"]()
-    setInterval(this.draw, 40);
-    setInterval(() => {
+    this.bg = background
+    this.create = setInterval(() => {
+      this.draw()
+      if (this.damage >= 100) {
+        this.endGame()
+      }
+    }, 40);
+    this.createEnemy = setInterval(() => {
       this.enemies.push(new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this))      
     } , this.difficulty * 1000)
 
@@ -208,8 +212,10 @@ class Game {
         if (check.destroyed) {
           this.killedTieFighters += 1
         }
+        check.destroy()
       }, 1000)
     }, 2000)
+
   };
 
   musicPlaying() {
@@ -224,7 +230,7 @@ class Game {
     document.getElementById('damage').innerHTML = `Health: ${100 - Math.floor(this.damage)}%`;
     document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
     document.getElementById('music').innerHTML = `Sound: ${this.musicPlaying()}`;
-    this.drawBG()
+    this.bg.draw()
     this.drawEnemies()
   }
 
@@ -234,50 +240,48 @@ class Game {
     })
   }
 
-  drawEnemy() {
-    let enemies = this.enemy
-    enemies.forEach(enemy => {
-      setTimeout(function () { }, 1000)
-      setInterval(function () {
-        enemy.draw()
-      }, 40)
-    });
-  }
-
-  drawBG() { 
-    this.bg.draw()
-  }
-
   handleMusic() {
-    let music = new _sound__WEBPACK_IMPORTED_MODULE_3__["default"]("../sounds/The_Asteroid_Field.mp3");
+    this.music = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]("../sounds/The_Asteroid_Field.mp3");
     document.getElementById('music').addEventListener('click', () => {
       if (this.soundOn) {
         this.soundOn = false
-        music.stop()
+        this.music.stop()
       } else {
         this.soundOn = true
-        music.start(this);
+        this.music.start(this);
       }
     }, false)
   }
 
   handleFireSound() {
-    let sound = new _sound__WEBPACK_IMPORTED_MODULE_3__["default"]('../sounds/XWing_fire.mp3')
+    let sound = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('../sounds/XWing_fire.mp3')
     sound.start(this, 0.5)
   };
  
   play() {
-    // this.manageDifficulty()
     this.handleMusic()
     let enemies = this.enemies
     document.getElementById('canvas').addEventListener('click', (evt) => {
-      let shot = new _shot__WEBPACK_IMPORTED_MODULE_2__["default"](evt.clientX, evt.clientY)
+      let shot = new _shot__WEBPACK_IMPORTED_MODULE_1__["default"](evt.clientX, evt.clientY)
       this.handleFireSound()
       shot.draw()
       enemies.forEach(enemy => {
         enemy.shootAt(evt.clientX, evt.clientY)
       })
     }, false);
+  }
+
+  endGame() {
+    clearInterval(this.createEnemy)
+    document.getElementById('splash').style.visibility = 'visible'; 
+    document.getElementById('play_btn_txt').innerHTML = 'Play Again'
+    document.getElementById('title_txt').innerHTML = 'The empire defeated you.'
+  }
+
+  clearGame() {
+    clearInterval(this.create)
+    this.music.stop()
+    this.soundOn = false;
   }
 };
 
@@ -295,13 +299,26 @@ class Game {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game */ "./src/game.js");
+/* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./background */ "./src/background.js");
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  const canvas = document.getElementById('canvas');
-  const game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](canvas)
-  game.play()
+  const bg = new _background__WEBPACK_IMPORTED_MODULE_1__["default"]()
+  const splashBackground = setInterval(bg.draw, 40);
+  let game;
+  document.getElementById('play_btn_txt').innerHTML = 'Play'
+  document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
 
+  document.getElementById('play_btn').addEventListener('click', (evt) => {   
+    if (game) {
+      game.clearGame()
+    }
+    document.getElementById('splash').style.visibility = 'hidden';
+    clearInterval(splashBackground)
+    game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](bg)
+    game.play()
+  })
 });
 
 /***/ }),
