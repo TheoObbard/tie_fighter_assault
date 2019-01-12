@@ -17,15 +17,18 @@ class TieFighter{
     this.rotate = ((this.getRandomRange(-24, 24)) * Math.PI / 180)
     this.canvas = document.getElementById('canvas');
     this.ctx = this.canvas.getContext('2d');
+    this.starting = true
+    this.sound;
+    this.shotSound;
 
     // gets a random number of shots to fire and fires them
-    this.shooting = this.getRandomRange(1, 4)
+    this.shooting = Math.floor(this.getRandomRange(1, 4))
     setInterval(() => {
       if (this.destroyed === false) {
         this.fire()
         this.game.damage += .01
       }
-    }, this.shooting * 100)
+    }, this.shooting * 1000)
   };
 
   getRandomRange(min, max) {
@@ -65,7 +68,32 @@ class TieFighter{
     return [x, y]
   }
 
+  handleFlySound() {
+    // reusing shooting as it's a random num from 1-4    
+    switch (this.shooting) {
+      case 1:
+        this.sound = new Sound('../sounds/TIE_fighter_flyby_1.mp3');
+        break;
+      case 2:
+        this.sound = new Sound('../sounds/TIE_fighter_flyby_2.mp3');
+        break;
+      case 3:
+        this.sound = new Sound('../sounds/TIE_fighter_flyby_4.mp3');
+        break;
+      default:
+        this.sound = new Sound('../sounds/TIE_fighter_flyby_1.mp3');
+        break;
+    }
+    if (this.game.soundOn) {
+      this.sound.start(this.game, .2);
+    }
+  }
+
   draw() {
+    if (this.starting) {
+      this.handleFlySound()
+    }
+    this.starting = false;
     this.ctx.save()    
     this.vel[0] += this.accel[0]
     this.vel[1] += this.accel[1]
@@ -104,6 +132,10 @@ class TieFighter{
   destroy() {
     this.img.src = '../assets/explosion.png';
     this.handleExplodeSound()
+    this.sound.stop()
+    if (this.shotSound) {
+      this.shotSound.stop()
+    }
     this.destroyed = true;
   }
 
@@ -114,18 +146,9 @@ class TieFighter{
     }
   }
 
-
-  handleShotSound() {
-    let sound = new Sound('../sounds/TIE_fighter_fire.mp3');
-    if (this.game.soundOn) {
-      sound.start(this.game);
-    }
-  }
-
   fire() {
     //they shoot at us and we take damage
     this.img.src = '../assets/tie_fighter_shoot.png';
-    // this.handleShotSound()
 
     setTimeout(() => {
       if (this.destroyed) {
@@ -133,7 +156,7 @@ class TieFighter{
       } else {
         this.img.src = '../assets/tie_fighter.png';
       }
-    }, 5)
+    }, 40)
   }
 }
 
