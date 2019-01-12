@@ -9,8 +9,6 @@ class Game {
     this.killedTieFighters = 0
     this.soundOn = false;
     this.damage = 0
-    this.drawBG = this.drawBG.bind(this)
-    this.drawEnemy = this.drawEnemy.bind(this)
     this.draw = this.draw.bind(this)
     this.enemies = [new TieFighter(this), new TieFighter(this), new TieFighter(this)]   
     this.bg = new Background()
@@ -30,20 +28,6 @@ class Game {
       }, 1000)
     }, 2000)
   };
-
-  // manageDifficulty() {
-  //   switch (this.killedTieFighters) {
-  //     case 20:
-  //       this.difficulty -= .8
-  //       break;
-  //     case 30:
-  //       this.difficulty -= .2
-  //       break;
-  //     case 50:
-  //       this.difficulty -= .5
-  //       break;
-  //   }
-  // }
 
   musicPlaying() {
     if (this.soundOn) {
@@ -82,7 +66,7 @@ class Game {
   }
 
   handleMusic() {
-    let music = new Sound("../sounds/music.mp3");
+    let music = new Sound("../sounds/The_Asteroid_Field.mp3");
     document.getElementById('music').addEventListener('click', () => {
       if (this.soundOn) {
         this.soundOn = false

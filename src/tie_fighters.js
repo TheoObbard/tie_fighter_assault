@@ -26,7 +26,7 @@ class TieFighter{
     setInterval(() => {
       if (this.destroyed === false) {
         this.fire()
-        this.game.damage += .01
+        this.game.damage += .1
       }
     }, this.shooting * 1000)
   };
