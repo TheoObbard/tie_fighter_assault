@@ -11,7 +11,7 @@ class TieFighter{
     } else {
       this.vel = [3, 3]
     }
-    this.size = [100, 100]
+    this.size = [50, 50]
     this.destroyed = false
     this.rotate = ((this.getRandomRange(-24, 24)) * Math.PI / 180)
     this.canvas = document.getElementById('canvas');

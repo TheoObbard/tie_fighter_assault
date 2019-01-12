@@ -23,6 +23,15 @@ body {
   font-weight: lighter;
 }
 
+#music {
+  font-size: 20px;
+  z-index: 10;
+  font-family: Distant Galaxy, sans-serif;
+  color: white;
+  margin-left: 50px;
+  font-weight: lighter;
+}
+
 /* .falcon {
   position: absolute;
   background-image: url('./useCockpit.png');

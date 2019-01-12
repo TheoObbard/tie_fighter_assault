@@ -180,6 +180,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _tie_fighters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tie_fighters */ "./src/tie_fighters.js");
 /* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./background */ "./src/background.js");
 /* harmony import */ var _shot__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shot */ "./src/shot.js");
+/* harmony import */ var _sound__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sound */ "./src/sound.js");
+
 
 
 
@@ -188,6 +190,7 @@ class Game {
   constructor(canvas) {
     this.difficulty = 1
     this.killedTieFighters = 0
+    this.soundOn = false;
     this.damage = 0
     this.drawBG = this.drawBG.bind(this)
     this.drawEnemy = this.drawEnemy.bind(this)
@@ -211,9 +214,22 @@ class Game {
     }, 2000)
   };
 
+  musicPlaying() {
+    if (this.soundOn) {
+      return 'on'
+    } else {
+      return 'off'
+    }
+  };
+
   draw() {
     document.getElementById('damage').innerHTML = `Damage: ${Math.floor(this.damage)}/100`;
     document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
+    document.getElementById('music').innerHTML = `Sound: ${this.musicPlaying()}`;
+    document.getElementById('music').addEventListener('click', function () {
+      this.soundOn = true;
+    }, false)
+
     this.drawBG()
     this.drawEnemies()
   }
@@ -239,6 +255,10 @@ class Game {
   }
 
   play() {
+    let music = new _sound__WEBPACK_IMPORTED_MODULE_3__["default"]("../sounds/music.mp3");
+    if (this.soundOn) {
+      music.start();
+    }
     let enemies = this.enemies
     document.getElementById('canvas').addEventListener('click', function (evt) {
       let shot = new _shot__WEBPACK_IMPORTED_MODULE_2__["default"](evt.clientX, evt.clientY)
@@ -247,7 +267,6 @@ class Game {
         enemy.shootAt(evt.clientX, evt.clientY)
       })
     }, false);
-
   }
 };
 
@@ -343,6 +362,38 @@ class Shot {
 
 /***/ }),
 
+/***/ "./src/sound.js":
+/*!**********************!*\
+  !*** ./src/sound.js ***!
+  \**********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+class Sound {
+  constructor(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+  }
+
+  start() {
+    this.sound.play();
+  }
+
+  stop() {
+    this.sound.pause();
+  }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Sound);
+
+/***/ }),
+
 /***/ "./src/tie_fighters.js":
 /*!*****************************!*\
   !*** ./src/tie_fighters.js ***!
@@ -365,7 +416,7 @@ class TieFighter{
     } else {
       this.vel = [3, 3]
     }
-    this.size = [100, 100]
+    this.size = [50, 50]
     this.destroyed = false
     this.rotate = ((this.getRandomRange(-24, 24)) * Math.PI / 180)
     this.canvas = document.getElementById('canvas');
