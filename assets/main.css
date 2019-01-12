@@ -9,9 +9,11 @@ body {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
-  margin-top: 92vh;
   justify-content: flex-start;
   z-index: 150;
+  bottom: 0%;
+  left: 0%;
+
 }
 
 #damage {
@@ -29,7 +31,13 @@ body {
   font-family: Distant Galaxy, sans-serif;
   color: white;
   margin-left: 50px;
+  margin-top: 100px;
   font-weight: lighter;
+  padding-top: 50px;
+}
+
+h1 #music{
+  padding-top: 100px;
 }
 
 /* .falcon {

@@ -200,7 +200,7 @@ class Game {
     setInterval(this.draw, 40);
     setInterval(() => {
       this.enemies.push(new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this))      
-    } , 1000)
+    } , this.difficulty * 1000)
 
     // This clears out enemies after they leave the screen
     setTimeout(() => {
@@ -214,6 +214,20 @@ class Game {
     }, 2000)
   };
 
+  // manageDifficulty() {
+  //   switch (this.killedTieFighters) {
+  //     case 20:
+  //       this.difficulty -= .8
+  //       break;
+  //     case 30:
+  //       this.difficulty -= .2
+  //       break;
+  //     case 50:
+  //       this.difficulty -= .5
+  //       break;
+  //   }
+  // }
+
   musicPlaying() {
     if (this.soundOn) {
       return 'on'
@@ -223,7 +237,7 @@ class Game {
   };
 
   draw() {
-    document.getElementById('damage').innerHTML = `Damage: ${Math.floor(this.damage)}/100`;
+    document.getElementById('damage').innerHTML = `Health: ${100 - Math.floor(this.damage)}%`;
     document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
     document.getElementById('music').innerHTML = `Sound: ${this.musicPlaying()}`;
     this.drawBG()
@@ -269,6 +283,7 @@ class Game {
   };
  
   play() {
+    // this.manageDifficulty()
     this.handleMusic()
     let enemies = this.enemies
     document.getElementById('canvas').addEventListener('click', (evt) => {
