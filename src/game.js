@@ -80,11 +80,17 @@ class Game {
     }, false)
   }
 
+  handleFireSound() {
+    let sound = new Sound('../sounds/XWing_fire.mp3')
+    sound.start(this, 0.5)
+  };
+ 
   play() {
     this.handleMusic()
     let enemies = this.enemies
-    document.getElementById('canvas').addEventListener('click', function (evt) {
+    document.getElementById('canvas').addEventListener('click', (evt) => {
       let shot = new Shot(evt.clientX, evt.clientY)
+      this.handleFireSound()
       shot.draw()
       enemies.forEach(enemy => {
         enemy.shootAt(evt.clientX, evt.clientY)

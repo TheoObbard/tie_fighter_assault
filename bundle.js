@@ -263,11 +263,17 @@ class Game {
     }, false)
   }
 
+  handleFireSound() {
+    let sound = new _sound__WEBPACK_IMPORTED_MODULE_3__["default"]('../sounds/XWing_fire.mp3')
+    sound.start(this, 0.5)
+  };
+ 
   play() {
     this.handleMusic()
     let enemies = this.enemies
-    document.getElementById('canvas').addEventListener('click', function (evt) {
+    document.getElementById('canvas').addEventListener('click', (evt) => {
       let shot = new _shot__WEBPACK_IMPORTED_MODULE_2__["default"](evt.clientX, evt.clientY)
+      this.handleFireSound()
       shot.draw()
       enemies.forEach(enemy => {
         enemy.shootAt(evt.clientX, evt.clientY)
@@ -526,7 +532,7 @@ class TieFighter{
   handleExplodeSound() {
     let sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_explode.mp3');
     if (this.game.soundOn) {
-      sound.start(this.game, .1);
+      sound.start(this.game, .06);
     }
   }
 

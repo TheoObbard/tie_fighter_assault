@@ -110,7 +110,7 @@ class TieFighter{
   handleExplodeSound() {
     let sound = new Sound('../sounds/TIE_fighter_explode.mp3');
     if (this.game.soundOn) {
-      sound.start(this.game, .1);
+      sound.start(this.game, .06);
     }
   }
 
