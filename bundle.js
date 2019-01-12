@@ -226,10 +226,6 @@ class Game {
     document.getElementById('damage').innerHTML = `Damage: ${Math.floor(this.damage)}/100`;
     document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
     document.getElementById('music').innerHTML = `Sound: ${this.musicPlaying()}`;
-    document.getElementById('music').addEventListener('click', function () {
-      this.soundOn = true;
-    }, false)
-
     this.drawBG()
     this.drawEnemies()
   }
@@ -254,11 +250,21 @@ class Game {
     this.bg.draw()
   }
 
-  play() {
+  handleMusic() {
     let music = new _sound__WEBPACK_IMPORTED_MODULE_3__["default"]("../sounds/music.mp3");
-    if (this.soundOn) {
-      music.start();
-    }
+    document.getElementById('music').addEventListener('click', () => {
+      if (this.soundOn) {
+        this.soundOn = false
+        music.stop()
+      } else {
+        this.soundOn = true
+        music.start(this);
+      }
+    }, false)
+  }
+
+  play() {
+    this.handleMusic()
     let enemies = this.enemies
     document.getElementById('canvas').addEventListener('click', function (evt) {
       let shot = new _shot__WEBPACK_IMPORTED_MODULE_2__["default"](evt.clientX, evt.clientY)
@@ -381,8 +387,11 @@ class Sound {
     document.body.appendChild(this.sound);
   }
 
-  start() {
-    this.sound.play();
+  start(game) {    
+    if (game.soundOn) {
+      console.log('oookay');
+      this.sound.play();
+    }
   }
 
   stop() {

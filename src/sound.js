@@ -8,8 +8,11 @@ class Sound {
     document.body.appendChild(this.sound);
   }
 
-  start() {
-    this.sound.play();
+  start(game) {    
+    if (game.soundOn) {
+      console.log('oookay');
+      this.sound.play();
+    }
   }
 
   stop() {
