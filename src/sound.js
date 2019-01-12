@@ -8,9 +8,10 @@ class Sound {
     document.body.appendChild(this.sound);
   }
 
-  start(game) {    
+  start(game, vol = 1) {    
     if (game.soundOn) {
       console.log('oookay');
+      this.sound.volume = vol
       this.sound.play();
     }
   }

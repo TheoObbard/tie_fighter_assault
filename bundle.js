@@ -387,9 +387,10 @@ class Sound {
     document.body.appendChild(this.sound);
   }
 
-  start(game) {    
+  start(game, vol = 1) {    
     if (game.soundOn) {
       console.log('oookay');
+      this.sound.volume = vol
       this.sound.play();
     }
   }
@@ -412,6 +413,8 @@ class Sound {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _sound__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sound */ "./src/sound.js");
+
 
 class TieFighter{
   constructor(game) {
@@ -516,12 +519,29 @@ class TieFighter{
 
   destroy() {
     this.img.src = '../assets/explosion.png';
+    this.handleExplodeSound()
     this.destroyed = true;
+  }
+
+  handleExplodeSound() {
+    let sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_explode.mp3');
+    if (this.game.soundOn) {
+      sound.start(this.game, .1);
+    }
+  }
+
+
+  handleShotSound() {
+    let sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_fire.mp3');
+    if (this.game.soundOn) {
+      sound.start(this.game);
+    }
   }
 
   fire() {
     //they shoot at us and we take damage
     this.img.src = '../assets/tie_fighter_shoot.png';
+    // this.handleShotSound()
 
     setTimeout(() => {
       if (this.destroyed) {
