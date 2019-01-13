@@ -98,7 +98,7 @@ __webpack_require__.r(__webpack_exports__);
 class Background {
   constructor() {
     this.img = new Image();
-    this.img.src = '../assets/stars.png';
+    this.img.src = './assets/stars.png';
     this.CanvasXSize = window.innerWidth;
     this.CanvasYSize = window.innerHeight;
     this.scale = 1.05;
@@ -265,7 +265,7 @@ class Game {
   }
 
   handleMusic() {
-    this.music = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('../sounds/The_Asteroid_Field.mp3');
+    this.music = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('./sounds/The_Asteroid_Field.mp3');
     document.getElementById('music').addEventListener('click', () => {
       if (this.soundOn) {
         this.soundOn = false;
@@ -278,7 +278,7 @@ class Game {
   }
 
   handleFireSound() {
-    let sound = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('../sounds/XWing_fire.mp3');
+    let sound = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('./sounds/XWing_fire.mp3');
     sound.start(this, 0.5);
   };
 }
@@ -442,7 +442,7 @@ class TieFighter{
     this.game = game;
     this.pos = this.randomPos();
     this.img = new Image();
-    this.img.src = '../assets/tie_fighter.png';
+    this.img.src = './assets/tie_fighter.png';
     this.accel = this.getAccel();
     if (this.accel[0] < 0) {
       this.vel = [-3, -3];
@@ -511,18 +511,18 @@ class TieFighter{
 
   fire() {
     //they shoot at us and we take damage
-    this.img.src = '../assets/tie_fighter_shoot.png';
+    this.img.src = './assets/tie_fighter_shoot.png';
     setTimeout(() => {
       if (this.destroyed) {
-        this.img.src = '../assets/explosion.png';
+        this.img.src = './assets/explosion.png';
       } else {
-        this.img.src = '../assets/tie_fighter.png';
+        this.img.src = './assets/tie_fighter.png';
       }
     }, 40);
   }
 
   destroy() {
-    this.img.src = '../assets/explosion.png';
+    this.img.src = './assets/explosion.png';
     this.handleExplodeSound();
     this.sound.stop();
     if (this.shotSound) {
@@ -572,16 +572,16 @@ class TieFighter{
     // reusing shooting as it's a random num from 1-4    
     switch (this.shooting) {
       case 1:
-        this.sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_flyby_1.mp3');
+        this.sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('./sounds/TIE_fighter_flyby_1.mp3');
         break;
       case 2:
-        this.sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_flyby_2.mp3');
+        this.sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('./sounds/TIE_fighter_flyby_2.mp3');
         break;
       case 3:
-        this.sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_flyby_4.mp3');
+        this.sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('./sounds/TIE_fighter_flyby_4.mp3');
         break;
       default:
-        this.sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_flyby_1.mp3');
+        this.sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('./sounds/TIE_fighter_flyby_1.mp3');
         break;
     }
     if (this.game.soundOn) {
@@ -590,14 +590,14 @@ class TieFighter{
   }
 
   handleExplodeSound() {
-    let sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_explode.mp3');
+    let sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('./sounds/TIE_fighter_explode.mp3');
     if (this.game.soundOn) {
       sound.start(this.game, .06);
     }
   }
 
   handleFireSound() {
-    let sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_fire.mp3');
+    let sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('./sounds/TIE_fighter_fire.mp3');
     if (this.game.soundOn) {
       sound.start(this.game, .06);
     }

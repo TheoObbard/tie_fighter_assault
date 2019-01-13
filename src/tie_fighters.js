@@ -5,7 +5,7 @@ class TieFighter{
     this.game = game;
     this.pos = this.randomPos();
     this.img = new Image();
-    this.img.src = '../assets/tie_fighter.png';
+    this.img.src = './assets/tie_fighter.png';
     this.accel = this.getAccel();
     if (this.accel[0] < 0) {
       this.vel = [-3, -3];
@@ -74,18 +74,18 @@ class TieFighter{
 
   fire() {
     //they shoot at us and we take damage
-    this.img.src = '../assets/tie_fighter_shoot.png';
+    this.img.src = './assets/tie_fighter_shoot.png';
     setTimeout(() => {
       if (this.destroyed) {
-        this.img.src = '../assets/explosion.png';
+        this.img.src = './assets/explosion.png';
       } else {
-        this.img.src = '../assets/tie_fighter.png';
+        this.img.src = './assets/tie_fighter.png';
       }
     }, 40);
   }
 
   destroy() {
-    this.img.src = '../assets/explosion.png';
+    this.img.src = './assets/explosion.png';
     this.handleExplodeSound();
     this.sound.stop();
     if (this.shotSound) {
@@ -135,16 +135,16 @@ class TieFighter{
     // reusing shooting as it's a random num from 1-4    
     switch (this.shooting) {
       case 1:
-        this.sound = new Sound('../sounds/TIE_fighter_flyby_1.mp3');
+        this.sound = new Sound('./sounds/TIE_fighter_flyby_1.mp3');
         break;
       case 2:
-        this.sound = new Sound('../sounds/TIE_fighter_flyby_2.mp3');
+        this.sound = new Sound('./sounds/TIE_fighter_flyby_2.mp3');
         break;
       case 3:
-        this.sound = new Sound('../sounds/TIE_fighter_flyby_4.mp3');
+        this.sound = new Sound('./sounds/TIE_fighter_flyby_4.mp3');
         break;
       default:
-        this.sound = new Sound('../sounds/TIE_fighter_flyby_1.mp3');
+        this.sound = new Sound('./sounds/TIE_fighter_flyby_1.mp3');
         break;
     }
     if (this.game.soundOn) {
@@ -153,14 +153,14 @@ class TieFighter{
   }
 
   handleExplodeSound() {
-    let sound = new Sound('../sounds/TIE_fighter_explode.mp3');
+    let sound = new Sound('./sounds/TIE_fighter_explode.mp3');
     if (this.game.soundOn) {
       sound.start(this.game, .06);
     }
   }
 
   handleFireSound() {
-    let sound = new Sound('../sounds/TIE_fighter_fire.mp3');
+    let sound = new Sound('./sounds/TIE_fighter_fire.mp3');
     if (this.game.soundOn) {
       sound.start(this.game, .06);
     }

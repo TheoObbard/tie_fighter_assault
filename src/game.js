@@ -90,7 +90,7 @@ class Game {
   }
 
   handleMusic() {
-    this.music = new Sound('../sounds/The_Asteroid_Field.mp3');
+    this.music = new Sound('./sounds/The_Asteroid_Field.mp3');
     document.getElementById('music').addEventListener('click', () => {
       if (this.soundOn) {
         this.soundOn = false;
@@ -103,7 +103,7 @@ class Game {
   }
 
   handleFireSound() {
-    let sound = new Sound('../sounds/XWing_fire.mp3');
+    let sound = new Sound('./sounds/XWing_fire.mp3');
     sound.start(this, 0.5);
   };
 }

@@ -1,7 +1,7 @@
 class Background {
   constructor() {
     this.img = new Image();
-    this.img.src = '../assets/stars.png';
+    this.img.src = './assets/stars.png';
     this.CanvasXSize = window.innerWidth;
     this.CanvasYSize = window.innerHeight;
     this.scale = 1.05;
