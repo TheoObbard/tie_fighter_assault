@@ -22,6 +22,15 @@ body {
   font-size: 60px;
 }
 
+#splash h2 {
+  font-family: Distant Galaxy, sans-serif;
+  font-weight: lighter;
+  font-size: 20px;
+  color: #fcda31;
+  text-align: center;
+  padding-bottom: 45px;
+}
+
 #play_btn {
   font-family: Distant Galaxy, sans-serif;
   font-weight: lighter;
@@ -73,15 +82,6 @@ body {
 h1 #music{
   padding-top: 100px;
 }
-
-/* .falcon {
-  position: absolute;
-  background-image: url('./useCockpit.png');
-  z-index: 120;  
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-} */
 
 #score {
   font-size: 20px;

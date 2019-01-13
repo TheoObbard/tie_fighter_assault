@@ -196,7 +196,7 @@ class Game {
     this.bg = background
     this.create = setInterval(() => {
       this.draw()
-      if (this.damage >= 100) {
+      if (this.damage >= 2) {
         this.endGame()
       }
     }, 40);
@@ -207,12 +207,14 @@ class Game {
     // This clears out enemies after they leave the screen
     setTimeout(() => {
       setInterval(() => {
-        let check = this.enemies.shift()
-        // as it removes them it checks for their destroyed status
-        if (check.destroyed) {
-          this.killedTieFighters += 1
+        if (this.enemies.length > 0) {
+          let check = this.enemies.shift()
+          // as it removes them it checks for their destroyed status
+          if (check.destroyed) {
+            this.killedTieFighters += 1
+          }
+          check.destroy()
         }
-        check.destroy()
       }, 1000)
     }, 2000)
 
@@ -241,7 +243,7 @@ class Game {
   }
 
   handleMusic() {
-    this.music = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]("../sounds/The_Asteroid_Field.mp3");
+    this.music = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('../sounds/The_Asteroid_Field.mp3');
     document.getElementById('music').addEventListener('click', () => {
       if (this.soundOn) {
         this.soundOn = false
@@ -275,6 +277,7 @@ class Game {
     clearInterval(this.createEnemy)
     document.getElementById('splash').style.visibility = 'visible'; 
     document.getElementById('play_btn_txt').innerHTML = 'Play Again'
+    document.getElementById('instructions').innerHTML = ''
     document.getElementById('title_txt').innerHTML = 'The empire defeated you.'
   }
 
@@ -309,6 +312,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let game;
   document.getElementById('play_btn_txt').innerHTML = 'Play'
   document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
+  document.getElementById('instructions').innerHTML = `Defend the galaxy from Darth Vader's tie fighters. <br>
+         Move your mouse to aim and click to shoot. <br> 
+         May the force be with you.`
 
   document.getElementById('play_btn').addEventListener('click', (evt) => {   
     if (game) {
@@ -464,6 +470,7 @@ class TieFighter{
     setInterval(() => {
       if (this.destroyed === false) {
         this.fire()
+        this.handleFireSound()
         this.game.damage += .1
       }
     }, this.shooting * 1000)
@@ -579,6 +586,13 @@ class TieFighter{
 
   handleExplodeSound() {
     let sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_explode.mp3');
+    if (this.game.soundOn) {
+      sound.start(this.game, .06);
+    }
+  }
+
+  handleFireSound() {
+    let sound = new _sound__WEBPACK_IMPORTED_MODULE_0__["default"]('../sounds/TIE_fighter_fire.mp3');
     if (this.game.soundOn) {
       sound.start(this.game, .06);
     }

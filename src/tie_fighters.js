@@ -26,6 +26,7 @@ class TieFighter{
     setInterval(() => {
       if (this.destroyed === false) {
         this.fire()
+        this.handleFireSound()
         this.game.damage += .1
       }
     }, this.shooting * 1000)
@@ -141,6 +142,13 @@ class TieFighter{
 
   handleExplodeSound() {
     let sound = new Sound('../sounds/TIE_fighter_explode.mp3');
+    if (this.game.soundOn) {
+      sound.start(this.game, .06);
+    }
+  }
+
+  handleFireSound() {
+    let sound = new Sound('../sounds/TIE_fighter_fire.mp3');
     if (this.game.soundOn) {
       sound.start(this.game, .06);
     }

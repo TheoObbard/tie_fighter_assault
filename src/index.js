@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let game;
   document.getElementById('play_btn_txt').innerHTML = 'Play'
   document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
+  document.getElementById('instructions').innerHTML = `Defend the galaxy from Darth Vader's tie fighters. <br>
+         Move your mouse to aim and click to shoot. <br> 
+         May the force be with you.`
 
   document.getElementById('play_btn').addEventListener('click', (evt) => {   
     if (game) {
