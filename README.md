@@ -1,3 +1,5 @@
+# Live site: https://theoobbard.github.io/tie_fighter_assault/
+
 # Project proposal - Star Wars Game
 
 ![Imgur](https://i.imgur.com/zJNUxT6.png)
