@@ -2,7 +2,7 @@ class Shot {
   constructor(x, y) {
     this.mouse = [x, y];
     this.content = document.getElementById('canvas');
-    this.ctx = this.content.getContext("2d");
+    this.ctx = this.content.getContext('2d');
     this.start = window.innerWidth;
   }
 
