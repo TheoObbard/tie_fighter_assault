@@ -1,22 +1,18 @@
 class Background {
   constructor() {
     this.img = new Image();
-
     this.img.src = '../assets/stars.png';
     this.CanvasXSize = window.innerWidth;
     this.CanvasYSize = window.innerHeight;
     this.scale = 1.05;
     this.y = -4.5;
-
     this.dx = 0.75;
     this.imgW = window.innerWidth;
     this.imgH = window.innerHeight;
     this.x = 0;
     this.clearX;
     this.clearY;
-
     this.img.onload = function () {
-
       if (this.imgW > this.CanvasXSize) {
         this.x = this.CanvasXSize - this.imgW;
       }
@@ -30,9 +26,8 @@ class Background {
       } else {
         this.clearY = this.CanvasYSize;
       }
-
     }
-    this.draw = this.draw.bind(this)
+    this.draw = this.draw.bind(this);
   }
 
   draw() {       
@@ -41,9 +36,7 @@ class Background {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     ctx = canvas.getContext('2d');
-    
     ctx.clearRect(0, 0, this.clearX, this.clearY);
-
     if (this.imgW <= this.CanvasXSize) {      
       if (this.x > this.CanvasXSize) {        
         this.x = -this.imgW + this.x;
@@ -65,6 +58,6 @@ class Background {
     ctx.drawImage(this.img, this.x, this.y, this.imgW, this.imgH);
     this.x += this.dx;
   }
-};
+}
 
-export default Background
+export default Background;

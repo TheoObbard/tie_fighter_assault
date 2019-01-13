@@ -6,12 +6,11 @@ class Sound {
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
     document.body.appendChild(this.sound);
-  }
+  };
 
   start(game, vol = 1) {    
     if (game.soundOn) {
-      console.log('oookay');
-      this.sound.volume = vol
+      this.sound.volume = vol;
       this.sound.play();
     }
   }
@@ -21,4 +20,4 @@ class Sound {
   }
 }
 
-export default Sound
+export default Sound;

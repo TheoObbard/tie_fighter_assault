@@ -1,24 +1,24 @@
 class Shot {
   constructor(x, y) {
-    this.mouse = [x, y]
-    this.content = document.getElementById('canvas')
+    this.mouse = [x, y];
+    this.content = document.getElementById('canvas');
     this.ctx = this.content.getContext("2d");
-    this.start = window.innerWidth
+    this.start = window.innerWidth;
   }
 
   draw() {
-    this.shot1()
+    this.left();
     setTimeout(() => {
-      this.shot2()
-    }, 15)
+      this.right();
+    }, 15);
   }
 
-  shot1() {
+  left() {
     this.ctx.beginPath();
-    let start = (this.start / 2) - 200
-    let endx = this.mouse[0] + 46
-    let endy = this.mouse[1] + 48
-    this.laserEffect(start, [endx, endy])
+    let start = (this.start / 2) - 200;
+    let endx = this.mouse[0] + 46;
+    let endy = this.mouse[1] + 48;
+    this.laserEffect(start, [endx, endy]);
     this.ctx.moveTo(start, window.innerHeight);
     this.ctx.lineTo(endx, endy);
     this.ctx.lineWidth = 5;
@@ -26,12 +26,12 @@ class Shot {
     this.ctx.stroke();
   }
 
-  shot2() {
+  right() {
     this.ctx.beginPath();
-    let start = (this.start / 2) + 200
-    let endx = this.mouse[0] + 46
-    let endy = this.mouse[1] + 48
-    this.laserEffect(start, [endx, endy])
+    let start = (this.start / 2) + 200;
+    let endx = this.mouse[0] + 46;
+    let endy = this.mouse[1] + 48;
+    this.laserEffect(start, [endx, endy]);
     this.ctx.moveTo(start, window.innerHeight);
     this.ctx.lineTo(endx, endy);
     this.ctx.lineWidth = 5;
@@ -48,8 +48,6 @@ class Shot {
     this.ctx.strokeStyle = 'red';
     this.ctx.stroke();
   }
-
 }
 
-
-export default Shot
+export default Shot;
