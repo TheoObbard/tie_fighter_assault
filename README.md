@@ -14,7 +14,8 @@ This project was built with vanilla JS and HTML canvas. No additional libraries 
 
 Getting sound to work was fairly easy but I found the design of it interesting so I'm going to do a quick writeup on it here. In this game there are constantly new enemies flying in and shooting/exploding. This means that at any given time there are up to 6 different sounds being rendered. To handle this I implemented a Sound class where I passed in a file on instantiation and then had a play and pause method. It's a very simple implementation but it allowed me to start the flying sound when tie fighters fly in, pause it when they blow up and play the explosion sound, play a sound every time the user shoots, or when the user is shot at. 
 
-```class Sound {
+```js
+class Sound {
   constructor(src) {
     this.sound = document.createElement('audio');
     this.sound.src = src;
@@ -34,4 +35,5 @@ Getting sound to work was fairly easy but I found the design of it interesting s
   stop() {
     this.sound.pause();
   }
-}```
+}
+```
