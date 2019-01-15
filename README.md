@@ -6,40 +6,32 @@ This game is inspired by games like asteroid. It is a simple first person shoote
 
 Users can aim at enemy Tie Fighters my moving the mouse and click to shoot. The game has sound effects which can be toggled on or off. Health will decrease as enemies shoot you, and the sooner you destroy them the longer you will survive.
 
+## Technologies used
 
-## Functionality and MVP Features 
+This project was built with vanilla JS and HTML canvas. No additional libraries were used.
 
-- [ ] Background rotates and tie fighters fly in and out of screen.
+## Sound
 
-- [ ] Players sight can be moved around and fire lasers. Lasers kill tie fighters.
+Getting sound to work was fairly easy but I found the design of it interesting so I'm going to do a quick writeup on it here. In this game there are constantly new enemies flying in and shooting/exploding. This means that at any given time there are up to 6 different sounds being rendered. To handle this I implemented a Sound class where I passed in a file on instantiation and then had a play and pause method. It's a very simple implementation but it allowed me to start the flying sound when tie fighters fly in, pause it when they blow up and play the explosion sound, play a sound every time the user shoots, or when the user is shot at. 
 
-- [ ] Tie fighters shoot at you and you acquire damage. 
+```class Sound {
+  constructor(src) {
+    this.sound = document.createElement('audio');
+    this.sound.src = src;
+    this.sound.setAttribute('preload', 'auto');
+    this.sound.setAttribute('controls', 'none');
+    this.sound.style.display = 'none';
+    document.body.appendChild(this.sound);
+  };
 
-- [ ] Sound effects are added to shooting, exploding, and tie fighter flying. 
+  start(game, vol = 1) {    
+    if (game.soundOn) {
+      this.sound.volume = vol;
+      this.sound.play();
+    }
+  }
 
-- [ ] Difficulty increases the longer you survive.
-
-## Architecture and technologies 
-
-To render the graphics to the page I'll use canvas. The game will be simply build with a series of classes which will have a set of rules. There will be a tie fighters class which will randomly choose an entry and exit point on the screen. They will then maneuver in a straight line across the window. As they pass through the users view their size will increase as will the rate at which they fire at you. 
-
-## Implementation Timeline
-
-  ** Day 1 **
-   - [ ] Review canvas and get page rendering with slow rotating background.
-   - [ ] Start writing tie fighter class.
-   
-   ** Day 2 ** 
-   - [ ] Get tie fighters flying across the screen and shooting. 
-   - [ ] Get user damage level to rise when hit. 
-   
-   ** Day 3 ** 
-   - [ ] Implement sight and have it be moveable across the screen. 
-   - [ ] Have clicking destroy tie fighters. 
-   - [ ] Have tie fighters explode when shot.
-   
-   ** Day 4 ** 
-   - [ ] Add sound effects and additional visual improvements. 
-   
-   ** Day 5 ** 
-   - [ ] Cleanup and push to heroku/github pages.
+  stop() {
+    this.sound.pause();
+  }
+}```
