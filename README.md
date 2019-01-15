@@ -1,16 +1,11 @@
 # Live site: https://theoobbard.github.io/tie_fighter_assault/
 
-# Project proposal - Star Wars Game
-
-![Imgur](https://i.imgur.com/zJNUxT6.png)
-
 ## Background and overview 
 
-This game is inspired by games like asteroid. It will be a simple first person shooter where the targets come in and out of frame. As you survive longer, more enemies will appear and will move/shoot at you faster. Your goal is not to dodge their shots but to shoot them before you are destroyed. It's a basic survival game. 
+This game is inspired by games like asteroid. It is a simple first person shooter where the targets come in and out of frame. Your goal is not to dodge their shots but to shoot them before you are destroyed.
 
-Users will be able to shoot enemies by using 'WASD' and the space bar to move the sight across the screen. The background will be an image of space and will slowly rotate/change direction to add movement to the game. I'll keep track of the damage that a user recieves and that will be displayed to the user via a damage bar. Damage will slowly decrease as time goes by so theoretically you can last quite a while. As you survive longer the tie fighters will become more aggressive (move faster and shoot more often).
+Users can aim at enemy Tie Fighters my moving the mouse and click to shoot. The game has sound effects which can be toggled on or off. Health will decrease as enemies shoot you, and the sooner you destroy them the longer you will survive.
 
-The tie fighter will be destroyable and when hit with a lazer they will explode which will use some kind of animation. I'll write tie fighters to never miss you but they won't do much damage when they're far away and they will start off moving slowly. The game will have running background music with a mute button. Tie fighters may also make some noise when they fly by or shoot/explode. A users shots will also make noise. 
 
 ## Functionality and MVP Features 
 
