@@ -16,28 +16,45 @@ body {
   height: 100%;
 }
 
-
-.clickable_gh {
+.logos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+.clickable_gh {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
+  cursor: url('MFsight99.png') 2 2, pointer;
+}
+
+.clickable_li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
   cursor: url('MFsight99.png') 2 2, pointer;
 }
 
 .github_logo {
-  /* position: absolute;
-  top: 20px;
-  right: 20px; */
   background-image: url('GitHub-Mark-Light-64px.png');
-  background-size: contain;
+  background-size: cover;
   height: 50px;
   width: 50px;
-  /* padding: 50px; */
+}
+
+.linkedin_logo {
+  background-image: url('li_logo.png');
+  background-size: cover;
+  height: 50px;
+  width: 50px;
 }
 
 #splash h1 {
