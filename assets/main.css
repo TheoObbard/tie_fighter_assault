@@ -16,6 +16,30 @@ body {
   height: 100%;
 }
 
+
+.clickable_gh {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  cursor: url('MFsight99.png') 2 2, pointer;
+}
+
+.github_logo {
+  /* position: absolute;
+  top: 20px;
+  right: 20px; */
+  background-image: url('GitHub-Mark-Light-64px.png');
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+  /* padding: 50px; */
+}
+
 #splash h1 {
   font-family: Distant Galaxy, sans-serif;
   font-weight: lighter;
