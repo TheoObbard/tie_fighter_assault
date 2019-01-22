@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('quit_game').addEventListener('click', () => {
       // game.clearGame()
       game.endGame()
+      game.clearSound()
       document.getElementById('play_btn_txt').innerHTML = 'Play'
       document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
       document.getElementById('instructions').innerHTML =

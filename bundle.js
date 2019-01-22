@@ -242,6 +242,11 @@ class Game {
     this.music.stop();
     this.soundOn = false;
   }
+
+  clearSound() {
+    this.music.stop();
+    this.soundOn = false;
+  }
   
   draw() {
     document.getElementById('damage').innerHTML = `Health: ${100 - Math.floor(this.damage)}%`;
@@ -326,6 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('quit_game').addEventListener('click', () => {
       // game.clearGame()
       game.endGame()
+      game.clearSound()
       document.getElementById('play_btn_txt').innerHTML = 'Play'
       document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
       document.getElementById('instructions').innerHTML =

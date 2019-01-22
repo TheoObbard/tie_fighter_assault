@@ -67,6 +67,11 @@ class Game {
     this.music.stop();
     this.soundOn = false;
   }
+
+  clearSound() {
+    this.music.stop();
+    this.soundOn = false;
+  }
   
   draw() {
     document.getElementById('damage').innerHTML = `Health: ${100 - Math.floor(this.damage)}%`;
