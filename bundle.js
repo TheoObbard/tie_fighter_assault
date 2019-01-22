@@ -324,7 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
     game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](bg)
     game.play()
     document.getElementById('quit_game').addEventListener('click', () => {
-      game.clearGame()
+      // game.clearGame()
       game.endGame()
       document.getElementById('play_btn_txt').innerHTML = 'Play'
       document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
