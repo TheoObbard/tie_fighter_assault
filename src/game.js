@@ -56,6 +56,7 @@ class Game {
   endGame() {
     clearInterval(this.createEnemy);
     document.getElementById('splash').style.visibility = 'visible';
+    document.getElementById('quit_game').style.visibility = 'hidden';
     document.getElementById('play_btn_txt').innerHTML = 'Play Again';
     document.getElementById('instructions').innerHTML = '';
     document.getElementById('title_txt').innerHTML = 'The empire defeated you.';

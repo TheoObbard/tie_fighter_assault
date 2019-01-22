@@ -142,3 +142,29 @@ canvas{
   position: relative;
   display: inline-block;
 }
+
+#quit_game {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  z-index: 10;
+
+  font-family: Distant Galaxy, sans-serif;
+  font-weight: lighter;
+  font-size: 25px;
+  background-color: black;
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  color: #fcda31;
+  border: 5px solid #fcda31;
+}

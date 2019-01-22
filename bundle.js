@@ -231,6 +231,7 @@ class Game {
   endGame() {
     clearInterval(this.createEnemy);
     document.getElementById('splash').style.visibility = 'visible';
+    document.getElementById('quit_game').style.visibility = 'hidden';
     document.getElementById('play_btn_txt').innerHTML = 'Play Again';
     document.getElementById('instructions').innerHTML = '';
     document.getElementById('title_txt').innerHTML = 'The empire defeated you.';
@@ -305,6 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let game;
   const bg = new _background__WEBPACK_IMPORTED_MODULE_1__["default"]()
   const splashBackground = setInterval(bg.draw, 40);
+  document.getElementById('quit_game').style.visibility = 'hidden';
   document.getElementById('play_btn_txt').innerHTML = 'Play'
   document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
   document.getElementById('instructions').innerHTML = 
@@ -315,11 +317,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('play_btn').addEventListener('click', () => {   
     if (game) {
       game.clearGame()
-    }
+    }  
     document.getElementById('splash').style.visibility = 'hidden';
+    document.getElementById('quit_game').style.visibility = 'visible';
     clearInterval(splashBackground)
     game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](bg)
     game.play()
+    document.getElementById('quit_game').addEventListener('click', () => {
+      game.clearGame()
+      game.endGame()
+      document.getElementById('play_btn_txt').innerHTML = 'Play'
+      document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
+      document.getElementById('instructions').innerHTML =
+        `It's okay, galactic battle isn't for everyone.`
+    })
   })
 });
 

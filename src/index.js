@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let game;
   const bg = new Background()
   const splashBackground = setInterval(bg.draw, 40);
+  document.getElementById('quit_game').style.visibility = 'hidden';
   document.getElementById('play_btn_txt').innerHTML = 'Play'
   document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
   document.getElementById('instructions').innerHTML = 
@@ -15,10 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('play_btn').addEventListener('click', () => {   
     if (game) {
       game.clearGame()
-    }
+    }  
     document.getElementById('splash').style.visibility = 'hidden';
+    document.getElementById('quit_game').style.visibility = 'visible';
     clearInterval(splashBackground)
     game = new Game(bg)
     game.play()
+    document.getElementById('quit_game').addEventListener('click', () => {
+      game.clearGame()
+      game.endGame()
+      document.getElementById('play_btn_txt').innerHTML = 'Play'
+      document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
+      document.getElementById('instructions').innerHTML =
+        `It's okay, galactic battle isn't for everyone.`
+    })
   })
 });
