@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('quit_game').addEventListener('click', () => {
       game.endGame()
       game.clearSound()
-      document.getElementById('play_btn_txt').innerHTML = 'Play'
+      document.getElementById('play_btn_txt').innerHTML = 'Play Again'
       document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
       document.getElementById('instructions').innerHTML =
         `It's okay, galactic battle isn't for everyone.`
