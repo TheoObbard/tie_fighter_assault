@@ -178,14 +178,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 class Game {
-  constructor(background) {
+  constructor(background, music) {
     this.difficulty = 1;
-    this.music;
+    this.music = music;
     this.killedTieFighters = 0;
     this.soundOn = false;
     this.damage = 0;
     this.enemies = [new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this), new _tie_fighters__WEBPACK_IMPORTED_MODULE_0__["default"](this)];   
     this.bg = background;
+    this.over = false;
 
     // Starts drawing canvas and ends the game
     this.create = setInterval(() => {
@@ -216,16 +217,18 @@ class Game {
   }
 
   play() {
-    this.handleMusic();
-    let enemies = this.enemies;
-    document.getElementById('canvas').addEventListener('click', (evt) => {
-      let shot = new _shot__WEBPACK_IMPORTED_MODULE_1__["default"](evt.clientX, evt.clientY);
-      this.handleFireSound();
-      shot.draw();
-      enemies.forEach(enemy => {
-        enemy.shotAt(evt.clientX, evt.clientY);
-      })
-    }, false);
+    if (!this.over) {
+      this.handleMusic();
+      let enemies = this.enemies;
+      document.getElementById('canvas').addEventListener('click', (evt) => {
+        let shot = new _shot__WEBPACK_IMPORTED_MODULE_1__["default"](evt.clientX, evt.clientY);
+        this.handleFireSound();
+        shot.draw();
+        enemies.forEach(enemy => {
+          enemy.shotAt(evt.clientX, evt.clientY);
+        })
+      }, false);
+    }
   }
 
   endGame() {
@@ -249,11 +252,13 @@ class Game {
   }
   
   draw() {
-    document.getElementById('damage').innerHTML = `Health: ${100 - Math.floor(this.damage)}%`;
-    document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
-    document.getElementById('music').innerHTML = `Sound: ${this.musicPlaying()}`;
-    this.bg.draw();
-    this.drawEnemies();
+    if (!this.over) {
+      document.getElementById('damage').innerHTML = `Health: ${100 - Math.floor(this.damage)}%`;
+      document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
+      document.getElementById('music').innerHTML = `Sound: ${this.musicPlaying()}`;
+      this.bg.draw();
+      this.drawEnemies();
+    }
   }
   
   drawEnemies() {
@@ -263,30 +268,35 @@ class Game {
   }
 
   musicPlaying() {
-    if (this.soundOn) {
-      return 'on';
-    } else {
-      return 'off';
+    if (!this.over) {
+      if (this.soundOn) {
+        return 'on';
+      } else {
+        return 'off';
+      }
     }
   }
 
   handleMusic() {
-    this.music = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('./sounds/The_Asteroid_Field.mp3');
-    document.getElementById('music').addEventListener('click', () => {
-      if (this.soundOn) {
-        this.soundOn = false;
-        this.music.stop();
-      } else {
-        this.soundOn = true;
-        this.music.start(this);
-      }
-    }, false);
+    if (!this.over) {
+      document.getElementById('music').addEventListener('click', () => {
+        if (this.soundOn) {
+          this.soundOn = false;
+          this.music.stop();
+        } else {
+          this.soundOn = true;
+          this.music.start(this);
+        }
+      }, false);
+    }
   }
 
   handleFireSound() {
-    let sound = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('./sounds/XWing_fire.mp3');
-    sound.start(this, 0.5);
-  };
+    if (!this.over) {
+      let sound = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('./sounds/XWing_fire.mp3');
+      sound.start(this, 0.5);
+    }
+  }
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Game);
@@ -304,6 +314,8 @@ class Game {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./game */ "./src/game.js");
 /* harmony import */ var _background__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./background */ "./src/background.js");
+/* harmony import */ var _sound__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sound */ "./src/sound.js");
+
 
 
 
@@ -318,19 +330,21 @@ document.addEventListener('DOMContentLoaded', () => {
         `Defend the galaxy from Darth Vader's tie fighters. <br>
          Move your mouse to aim and click to shoot. <br> 
          May the force be with you.`
+  let music = new _sound__WEBPACK_IMPORTED_MODULE_2__["default"]('./sounds/The_Asteroid_Field.mp3');
 
   document.getElementById('play_btn').addEventListener('click', () => {   
     if (game) {
-      game.clearGame()
-    }  
+      game.clearGame() 
+      game.over = true;  
+      music.stop()
+    }    
     document.getElementById('splash').style.visibility = 'hidden';
     document.getElementById('quit_game').style.visibility = 'visible';
     clearInterval(splashBackground)
-    game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](bg)
+    game = new _game__WEBPACK_IMPORTED_MODULE_0__["default"](bg, music)
     game.play()
     document.getElementById('quit_game').addEventListener('click', () => {
       game.endGame()
-      game.clearSound()
       document.getElementById('play_btn_txt').innerHTML = 'Play Again'
       document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
       document.getElementById('instructions').innerHTML =

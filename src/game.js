@@ -3,14 +3,15 @@ import Shot from './shot';
 import Sound from './sound';
 
 class Game {
-  constructor(background) {
+  constructor(background, music) {
     this.difficulty = 1;
-    this.music;
+    this.music = music;
     this.killedTieFighters = 0;
     this.soundOn = false;
     this.damage = 0;
     this.enemies = [new TieFighter(this), new TieFighter(this), new TieFighter(this)];   
     this.bg = background;
+    this.over = false;
 
     // Starts drawing canvas and ends the game
     this.create = setInterval(() => {
@@ -41,16 +42,18 @@ class Game {
   }
 
   play() {
-    this.handleMusic();
-    let enemies = this.enemies;
-    document.getElementById('canvas').addEventListener('click', (evt) => {
-      let shot = new Shot(evt.clientX, evt.clientY);
-      this.handleFireSound();
-      shot.draw();
-      enemies.forEach(enemy => {
-        enemy.shotAt(evt.clientX, evt.clientY);
-      })
-    }, false);
+    if (!this.over) {
+      this.handleMusic();
+      let enemies = this.enemies;
+      document.getElementById('canvas').addEventListener('click', (evt) => {
+        let shot = new Shot(evt.clientX, evt.clientY);
+        this.handleFireSound();
+        shot.draw();
+        enemies.forEach(enemy => {
+          enemy.shotAt(evt.clientX, evt.clientY);
+        })
+      }, false);
+    }
   }
 
   endGame() {
@@ -74,11 +77,13 @@ class Game {
   }
   
   draw() {
-    document.getElementById('damage').innerHTML = `Health: ${100 - Math.floor(this.damage)}%`;
-    document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
-    document.getElementById('music').innerHTML = `Sound: ${this.musicPlaying()}`;
-    this.bg.draw();
-    this.drawEnemies();
+    if (!this.over) {
+      document.getElementById('damage').innerHTML = `Health: ${100 - Math.floor(this.damage)}%`;
+      document.getElementById('score').innerHTML = `Score: ${Math.floor(this.killedTieFighters)}`;
+      document.getElementById('music').innerHTML = `Sound: ${this.musicPlaying()}`;
+      this.bg.draw();
+      this.drawEnemies();
+    }
   }
   
   drawEnemies() {
@@ -88,30 +93,35 @@ class Game {
   }
 
   musicPlaying() {
-    if (this.soundOn) {
-      return 'on';
-    } else {
-      return 'off';
+    if (!this.over) {
+      if (this.soundOn) {
+        return 'on';
+      } else {
+        return 'off';
+      }
     }
   }
 
   handleMusic() {
-    this.music = new Sound('./sounds/The_Asteroid_Field.mp3');
-    document.getElementById('music').addEventListener('click', () => {
-      if (this.soundOn) {
-        this.soundOn = false;
-        this.music.stop();
-      } else {
-        this.soundOn = true;
-        this.music.start(this);
-      }
-    }, false);
+    if (!this.over) {
+      document.getElementById('music').addEventListener('click', () => {
+        if (this.soundOn) {
+          this.soundOn = false;
+          this.music.stop();
+        } else {
+          this.soundOn = true;
+          this.music.start(this);
+        }
+      }, false);
+    }
   }
 
   handleFireSound() {
-    let sound = new Sound('./sounds/XWing_fire.mp3');
-    sound.start(this, 0.5);
-  };
+    if (!this.over) {
+      let sound = new Sound('./sounds/XWing_fire.mp3');
+      sound.start(this, 0.5);
+    }
+  }
 }
 
 export default Game;

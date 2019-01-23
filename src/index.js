@@ -1,5 +1,6 @@
 import Game from './game';
 import Background from './background';
+import Sound from './sound';
 
 document.addEventListener('DOMContentLoaded', () => {
   let game;
@@ -12,19 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
         `Defend the galaxy from Darth Vader's tie fighters. <br>
          Move your mouse to aim and click to shoot. <br> 
          May the force be with you.`
+  let music = new Sound('./sounds/The_Asteroid_Field.mp3');
 
   document.getElementById('play_btn').addEventListener('click', () => {   
     if (game) {
-      game.clearGame()
-    }  
+      game.clearGame() 
+      game.over = true;  
+      music.stop()
+    }    
     document.getElementById('splash').style.visibility = 'hidden';
     document.getElementById('quit_game').style.visibility = 'visible';
     clearInterval(splashBackground)
-    game = new Game(bg)
+    game = new Game(bg, music)
     game.play()
     document.getElementById('quit_game').addEventListener('click', () => {
       game.endGame()
-      game.clearSound()
       document.getElementById('play_btn_txt').innerHTML = 'Play Again'
       document.getElementById('title_txt').innerHTML = 'Tie Fighter Assault'
       document.getElementById('instructions').innerHTML =
