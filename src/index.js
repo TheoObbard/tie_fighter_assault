@@ -2,9 +2,18 @@ import Game from './game';
 import Background from './background';
 import Sound from './sound';
 
+// document.getElementsByTagName('BODY').style.visibility = 'hidden';
+
 document.addEventListener('DOMContentLoaded', () => {
+  // document.getElementsByTagName('BODY').style.visibility = 'visible';
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
   let game;
-  const bg = new Background()
+  const bg = new Background(canvas, ctx)
   const splashBackground = setInterval(bg.draw, 40);
   document.getElementById('quit_game').style.visibility = 'hidden';
   document.getElementById('play_btn_txt').innerHTML = 'Play'
