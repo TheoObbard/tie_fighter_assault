@@ -2,10 +2,7 @@ import Game from './game';
 import Background from './background';
 import Sound from './sound';
 
-// document.getElementsByTagName('BODY').style.visibility = 'hidden';
-
 document.addEventListener('DOMContentLoaded', () => {
-  // document.getElementsByTagName('BODY').style.visibility = 'visible';
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 

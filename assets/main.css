@@ -4,6 +4,9 @@ body {
   z-index: 1;
 }
 
+@font-face { font-family: Distant Galaxy; src: url('JUNEBUG.TTF'); } 
+
+
 #splash {
   position: absolute;
   color: white;

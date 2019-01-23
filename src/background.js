@@ -33,11 +33,8 @@ class Background {
   }
 
   draw() {       
-    // let ctx;
-    // let canvas = document.getElementById('canvas');
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    // ctx = canvas.getContext('2d');
     this.ctx.clearRect(0, 0, this.clearX, this.clearY);
     if (this.imgW <= this.CanvasXSize) {      
       if (this.x > this.CanvasXSize) {        

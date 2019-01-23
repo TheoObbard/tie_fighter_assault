@@ -130,11 +130,8 @@ class Background {
   }
 
   draw() {       
-    // let ctx;
-    // let canvas = document.getElementById('canvas');
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    // ctx = canvas.getContext('2d');
     this.ctx.clearRect(0, 0, this.clearX, this.clearY);
     if (this.imgW <= this.CanvasXSize) {      
       if (this.x > this.CanvasXSize) {        
@@ -321,10 +318,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// document.getElementsByTagName('BODY').style.visibility = 'hidden';
-
 document.addEventListener('DOMContentLoaded', () => {
-  // document.getElementsByTagName('BODY').style.visibility = 'visible';
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
 
