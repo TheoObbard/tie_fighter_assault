@@ -5,7 +5,7 @@ body {
 }
 
 @font-face { 
-  font-family: 'Distant Galaxy'; 
+  font-family: 'Distant_Galaxy'; 
   src: url(DISTGRG_.ttf) format('truetype');
 } 
 
@@ -63,13 +63,13 @@ body {
 }
 
 #splash h1 {
-  font-family: 'Distant Galaxy', sans-serif;
+  font-family: 'Distant_Galaxy', sans-serif;
   font-weight: lighter;
   font-size: 60px;
 }
 
 #splash h2 {
-  font-family: 'Distant Galaxy', sans-serif;
+  font-family: 'Distant_Galaxy', sans-serif;
   font-weight: lighter;
   font-size: 20px;
   color: #fcda31;
@@ -78,7 +78,7 @@ body {
 }
 
 #play_btn {
-  font-family: 'Distant Galaxy', sans-serif;
+  font-family: 'Distant_Galaxy', sans-serif;
   font-weight: lighter;
   font-size: 40px;
   background-color: black;
@@ -108,7 +108,7 @@ body {
 #damage {
   font-size: 20px;
   z-index: 10;
-  font-family: 'Distant Galaxy', sans-serif;
+  font-family: 'Distant_Galaxy', sans-serif;
   color: white;
   margin-left: 50px;
   font-weight: lighter;
@@ -117,7 +117,7 @@ body {
 #music {
   font-size: 20px;
   z-index: 10;
-  font-family: 'Distant Galaxy', sans-serif;
+  font-family: 'Distant_Galaxy', sans-serif;
   color: white;
   margin-left: 50px;
   margin-top: 100px;
@@ -132,7 +132,7 @@ h1 #music{
 #score {
   font-size: 20px;
   z-index: 10;
-  font-family: 'Distant Galaxy', sans-serif;
+  font-family: 'Distant_Galaxy', sans-serif;
   color: white;
   font-weight: lighter;
   margin-left: 10px;
@@ -158,7 +158,7 @@ canvas{
   color: white;
   z-index: 10;
 
-  font-family: 'Distant Galaxy', sans-serif;
+  font-family: 'Distant_Galaxy', sans-serif;
   font-weight: lighter;
   font-size: 25px;
   background-color: black;
