@@ -6,7 +6,7 @@ body {
 
 @font-face { 
   font-family: 'Distant_Galaxy'; 
-  src: url(DISTGRG_.ttf) format('truetype');
+  src: url('../DISTGRG.ttf') format('truetype');
 } 
 
 #splash {
