@@ -1,5 +1,7 @@
 # Live site: https://theoobbard.github.io/tie_fighter_assault/
 
+![tie fighters](http://www.giphy.com/gifs/BWJm97XSTTA1hnSPlz)
+
 ## Background and overview 
 
 This game is inspired by games like asteroid. It is a simple first person shooter where the targets come in and out of frame. Your goal is not to dodge their shots but to shoot them before you are destroyed.
