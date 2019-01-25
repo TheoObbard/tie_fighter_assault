@@ -1,6 +1,6 @@
 # Live site: https://theoobbard.github.io/tie_fighter_assault/
 
-![tie fighters](https://media.giphy.com/media/BWJm97XSTTA1hnSPlz/giphy.gif)
+![tie fighters](tie_fighter_giphy.gif)
 
 ## Background and overview 
 
